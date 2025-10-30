@@ -27,9 +27,9 @@ public class Enemy extends Entity {
 	
 	public Enemy(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		this.attackRadius = attackRadius;
-		this.idleRadius = idleRadius;
-		this.damage = damage;
+		this.attackRadius = attackRadius; //perhaps 40?
+		this.idleRadius = idleRadius; //about 20?
+		this.damage = damage; //10?
 		
 		try {
 			sprite =  ImageIO.read(Enemy.class.getResource("tennis.png")); //change this to enemy.png
