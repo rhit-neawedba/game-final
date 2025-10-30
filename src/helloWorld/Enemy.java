@@ -108,7 +108,7 @@ public class Enemy extends Entity {
 	
 	public void attack(Player player) {
 //		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
-//			player.loseHealth(damage);
+//			player.loseHealth(damage); 
 //		}
 	}
 	
