@@ -25,14 +25,12 @@ public class Enemy extends Entity {
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
 	
-	public Enemy(int attackRadius) {
+	public Enemy(int x, int y, int width, int height) {
+		super(x, y, width, height);
 		this.attackRadius = attackRadius;
 		this.idleRadius = idleRadius;
 		this.damage = damage;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		
 		try {
 			sprite =  ImageIO.read(Enemy.class.getResource("tennis.png")); //change this to enemy.png
 			spriteLoaded = true;
@@ -107,5 +105,11 @@ public class Enemy extends Entity {
         g2.fillRect(x, y, width, height);
     	}
     }
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
 	}
 	
