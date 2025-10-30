@@ -107,5 +107,11 @@ public class Enemy extends Entity {
         g2.fillRect(x, y, width, height);
     	}
     }
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
 	}
 	
