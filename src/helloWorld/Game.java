@@ -3,11 +3,14 @@ package helloWorld;
 import javax.swing.*;
 
 public class Game {
-	 private final JFrame frame = new JFrame("Final Project - Game Name TBD");
-	    private GamePanel panel = new GamePanel();
+	 private final JFrame frame;
+	    private GamePanel panel;
 
 	    
 	 public Game() {
+		 	frame = new JFrame("Final Project - Game Name TBD");
+		 	panel = new GamePanel();
+		 	
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setContentPane(panel);
 	        frame.pack();
@@ -16,5 +19,6 @@ public class Game {
 	 
 	    public void show() {
 	        frame.setVisible(true);
+	        panel.requestFocusInWindow();
 	    }
 }
