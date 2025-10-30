@@ -10,7 +10,7 @@ public class Platform {
 
 	int x, y;
 	int width,height;
-    Color color = Color.RED;
+    Color color = Color.GRAY;
    private BufferedImage sprite;
    private boolean spritecreated = false;
     

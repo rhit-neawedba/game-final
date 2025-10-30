@@ -32,7 +32,7 @@ public class Enemy extends Entity {
 		this.damage = damage; //10?
 		
 		try {
-			sprite =  ImageIO.read(Enemy.class.getResource("tennis.png")); //change this to enemy.png
+			sprite =  ImageIO.read(Enemy.class.getResource("enemy.png")); 
 			spriteLoaded = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -108,7 +108,14 @@ public class Enemy extends Entity {
 	
 	public void attack(Player player) {
 //		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
-//			player.loseHealth(damage); 
+//			if (player.getX() > this.getX()) {
+//				player.loseHealth(damage);
+//				this.x = this.x + 1;
+//			}
+//			else if (player.getX() < this.getX()) {
+//				player.loseHealth(damage);
+//				this.x = this.x - 1;
+//			}
 //		}
 	}
 	
@@ -129,7 +136,6 @@ public class Enemy extends Entity {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
 		
 	}
 	}
