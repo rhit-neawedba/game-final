@@ -83,12 +83,12 @@ public class Enemy extends Entity {
 //		//fall if off platform - Enemy cannot jump to add a level of strategy to the player's gameplay
 //		this.applyPhysics(null); // may have to redo this
 //		
-//		//chase player
-//		if (attackRadius <= Math.sqrt(Math.abs(this.getX() - player.getX()) + Math.abs(this.getY() - player.getY())) 
+//		//chase players
+//		if ((attackRadius)^2 <= Math.abs(this.getX() - player.getX()) + Math.abs(this.getY() - player.getY()) 
 //				&& player.getX() > this.getX()) {
 //			x += speed;
 //		}
-//		else if (attackRadius <= Math.sqrt(Math.abs(this.getX() - player.getX()) + Math.abs(this.getY() - player.getY()))  
+//		else if ((attackRadius)^2 <= Math.abs(this.getX() - player.getX()) + Math.abs(this.getY() - player.getY())  
 //				&& player.getX() < this.getX()) {
 //			x -= speed;
 //		}
