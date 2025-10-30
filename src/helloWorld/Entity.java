@@ -1,5 +1,6 @@
 package helloWorld;
 
+import java.awt.Graphics2D;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,9 +18,10 @@ public abstract class Entity extends Collision {
 	protected boolean grounded = false;
 	private Foot foot;
 	
-	private int timeStamp = LocalDateTime.now().getNano(); // timestamp in milliseconds for delta time
+	private long timeStamp = System.currentTimeMillis(); // timestamp in milliseconds for delta time
 	
 	public Entity(int x, int y, int width, int height) {
+		this.x = x; this.y = y; this.width = width; this.height = height;
 		this.foot = new Foot(x, y+height, width);
 	}
 	
@@ -29,44 +31,53 @@ public abstract class Entity extends Collision {
 		double deltaTime = getDeltaTime();
 		
 		// apply gravity
-		this.vy += GRAVITY * deltaTime;
+//		this.vy += GRAVITY * deltaTime;
 		
-		for (Collision c : staticColliders) {
-			// this would be more correct if you have a separate collision box just for the foot
-			if (foot.collidesWith(c)) {
-				this.vy = 0d;
-				this.grounded = true;
+		if (staticColliders != null) {
+			for (Collision c : staticColliders) {
+				// this would be more correct if you have a separate collision box just for the foot
+				if (foot.collidesWith(c)) {
+					this.vy = 0d;
+					this.grounded = true;
+				}
+				else this.grounded = true;
 			}
-			else this.grounded = true;
 		}
 		
 		this.vx = Math.clamp(this.vx, -MAX_VELOCITY, MAX_VELOCITY);
 		this.vy = Math.clamp(this.vy, -MAX_VELOCITY, MAX_VELOCITY);
 		
-		double newX = this.x + this.vx * deltaTime;
-		double newY = this.y + this.vy * deltaTime;
+		double newX = this.x + (this.vx * deltaTime);
+		double newY = this.y + (this.vy * deltaTime);
 		
-		SetPosition(newX, newY);
+		setPosition(newX, newY);
 		
 	}
 	
-	public void SetPosition(double x, double y) {
-		SetPosition((int)x, (int)y);
-	}
-	public void SetPosition(int x, int y) {
+	protected void setPosition(double x, double y) {
 		this.x = x;
 		this.y = y;
-		// move foot with entity
+		
 		this.foot.setPosition(x, y+this.height);
+	}
+	public void setPosition(int x, int y) {
+		setPosition((double)x,(double)y);
 	}
 	
 	// deltatime for physics
 	protected double getDeltaTime() {
-		int newTime = LocalDateTime.now().getNano();
-		int deltaNano = newTime-timeStamp;
+		long newTime = System.currentTimeMillis();
+		long deltaMilis = newTime-timeStamp;
 		timeStamp = newTime;
-		return deltaNano / 1.0E6d;
+		return deltaMilis / 1.0e3;
 	}
+	
+	/**
+	 * draws the Entity on a component
+	 * @param g2
+	 */
+	abstract public void draw(Graphics2D g2);
+	
 }
 
 /**
@@ -83,7 +94,7 @@ class Foot extends Collision {
 		this.height = HEIGHT;
 	}
 	
-	public void setPosition(int x, int y) {
+	public void setPosition(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
