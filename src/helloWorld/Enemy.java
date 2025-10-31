@@ -17,7 +17,7 @@ public class Enemy extends Entity {
 	int attackRadius;
 	int idleRadius;
 	int damage;
-	Color color = new Color(107,67,173); //change to close to enemy color later
+	Color color = new Color(255,145,1); 
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
     
@@ -31,7 +31,7 @@ public class Enemy extends Entity {
 		this.damage = damage; //10?
 		
 		try {
-			sprite =  ImageIO.read(Enemy.class.getResource("tennis.png")); //change this to enemy.png
+			sprite =  ImageIO.read(Enemy.class.getResource("enemy.png")); 
 			spriteLoaded = true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -140,7 +140,14 @@ public class Enemy extends Entity {
 	
 	public void attack(Player player) {
 //		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
-//			player.loseHealth(damage); 
+//			if (player.getX() > this.getX()) {
+//				player.loseHealth(damage);
+//				this.x = this.x + 1;
+//			}
+//			else if (player.getX() < this.getX()) {
+//				player.loseHealth(damage);
+//				this.x = this.x - 1;
+//			}
 //		}
 	}
 	
@@ -161,7 +168,6 @@ public class Enemy extends Entity {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
 		
 	}
 	
