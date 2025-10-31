@@ -21,7 +21,7 @@ public class Enemy extends Entity {
 	int y;
 	int width;
 	int height;
-	Color color = new Color(107,67,173); //change to close to enemy color later
+	Color color = new Color(255,145,1); 
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
 	
