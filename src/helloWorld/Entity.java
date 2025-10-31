@@ -21,6 +21,7 @@ public abstract class Entity extends Collision {
 	private Foot foot;
 	
 	private long timeStamp = System.currentTimeMillis(); // timestamp in milliseconds for delta time
+	protected double deltatime;
 	private GamePanel canvas; // to keep entities on screen or detect when they fall off
 	
 	public Entity(int x, int y, int width, int height, GamePanel canvas) {
@@ -31,18 +32,17 @@ public abstract class Entity extends Collision {
 	
 	abstract public void die();
 	public void applyPhysics(Collision[] staticColliders) {
-		
-		double deltaTime = getDeltaTime();
+		getDeltaTime();
 		
 		// apply gravity
 		if (!grounded) {
-			this.vy += GRAVITY * deltaTime;
+			this.vy += GRAVITY * deltatime;
 		}
 		
 		this.grounded = false;
 		
 		// collision with the bottom of the window
-		if (this.y+this.height > canvas.getHeight()-epsilon) { // TODO: get real window height
+		if (this.y+this.height > canvas.getHeight()-epsilon) {
 			this.vy = 0d;
 			this.y = canvas.getHeight() - this.height; // snap to floor
 			this.grounded = true;
@@ -64,8 +64,8 @@ public abstract class Entity extends Collision {
 		this.vx = Math.clamp(this.vx, -MAX_VELOCITY, MAX_VELOCITY);
 		this.vy = Math.clamp(this.vy, -MAX_VELOCITY, MAX_VELOCITY);
 		
-		double newX = this.x + (this.vx * deltaTime);
-		double newY = this.y + (this.vy * deltaTime);
+		double newX = this.x + (this.vx * deltatime);
+		double newY = this.y + (this.vy * deltatime);
 		
 		setPosition(newX, newY);
 		
@@ -83,11 +83,11 @@ public abstract class Entity extends Collision {
 	 * get the difference in time from the call to the last call
 	 * @return deltatime in seconds
 	 */
-	protected double getDeltaTime() {
+	private void getDeltaTime() {
 		long newTime = System.currentTimeMillis();
 		long deltaMilis = newTime-timeStamp;
 		timeStamp = newTime;
-		return deltaMilis / 1.0e3;
+		deltatime = deltaMilis / 1.0e3;
 	}
 	
 	/**
