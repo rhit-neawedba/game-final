@@ -21,14 +21,17 @@ public class Enemy extends Entity {
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
     
-    private static final int IDLE_FRAME_MAX = 2000;
     private int idleFrameCount = 0;
+    private int idleFrameMax;
 	
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
 		this.attackRadius = attackRadius; //perhaps 40?
-		this.idleRadius = idleRadius; //about 20?
+		this.idleRadius = 100; //about 20?
 		this.damage = damage; //10?
+		this.vx = 100;
+		
+		System.out.println(this.idleRadius/this.vx);
 		
 		try {
 			sprite =  ImageIO.read(Enemy.class.getResource("enemy.png")); 
@@ -47,14 +50,12 @@ public class Enemy extends Entity {
 		this.attackRadius = attackRadius;
 	}
 	
-	/*
 	public int getIdleRadius() {
 		return idleRadius;
 	}
 	public void setIdleRadius(int idleRadius) {
 		this.idleRadius = idleRadius;
 	}
-	*/
 	
 	public int getDamage() {
 		return damage;
@@ -129,11 +130,12 @@ public class Enemy extends Entity {
 //	}
  		
 		else {
-			if (idleFrameCount == IDLE_FRAME_MAX) { // after a number of ticks, flip change the enemy direction
+//			System.out.printf("%f - %f\n", idleFrameCount*deltatime,this.idleRadius/this.vx);
+			if (idleFrameCount*deltatime >= Math.abs(this.idleRadius/this.vx)) { // after a number of ticks, flip change the enemy direction
 				vx = -vx;
 				idleFrameCount = 0; // reset the frame count to 0 to restart the cycle
 			}
-			idleFrameCount += IDLE_FRAME_MAX;
+			idleFrameCount += 1;
 		}		
 		
 	}
@@ -158,7 +160,7 @@ public class Enemy extends Entity {
 	 */
 	public void draw(Graphics2D g2) {
 		if (spriteLoaded) {
-//    		g2.drawImage(sprite, x, y, width, height, null);
+    		g2.drawImage(sprite, getX(), getY(), width, height, null);
     	}
     	else {
 	        g2.setColor(color);
@@ -174,7 +176,7 @@ public class Enemy extends Entity {
 
 	public void tick(Collision[] staticColliders, Player player) {
 		applyPhysics(staticColliders);
-		System.out.printf("%f,%f",x,y);
+//		System.out.printf("%f,%f",x,y);
 		this.trackPlayer(player);
 	}
 
