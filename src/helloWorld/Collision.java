@@ -27,4 +27,12 @@ public abstract class Collision {
 	public int getY() {return (int)y;}
 	public int getWidth() {return width;}
 	public int getHeight() {return height;}
+	
+	protected void setPosition(double x, double y) {
+		this.x = x;
+		this.y = y;	
+	}
+	public void setPosition(int x, int y) {
+		setPosition((double)x,(double)y);
+	}
 }

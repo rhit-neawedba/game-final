@@ -8,20 +8,25 @@ import java.awt.event.KeyEvent;
  * @author Skye Willis
  */
 public class Player extends Entity {
-	private static final int PLAYER_HEIGHT=50, PLAYER_WIDTH=50;
+	private static final int PLAYER_HEIGHT=50, PLAYER_WIDTH=30;
+	private static final double JUMP_VELOCITY = -800;
 
-	public Player(int x, int y) {
-		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+	public Player(int x, int y, GamePanel canvas) {
+		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
 	}
 	
-	public void handleKeyEvent(KeyEvent e) {
-		this.applyPhysics(null);
-		switch (e.getKeyCode()) {
-			case KeyEvent.VK_D -> this.vx = 10;
-			case KeyEvent.VK_A -> this.vx = -10;
-		}
-		System.out.printf("x: %f\n", this.x);
+	public void move(int dirx) {
+		this.vx = dirx * this.speed;
 	}
+	
+	public void jump() {
+		if (grounded) {
+			this.vy = JUMP_VELOCITY;
+			this.grounded = false;
+			this.y -= 5;
+		}
+	}
+	
 
 	@Override
 	public void die() {
@@ -32,7 +37,10 @@ public class Player extends Entity {
 		Color c = g2.getColor();
 		g2.setColor(Color.RED);
 		g2.fillRect(getX(), getY(), width, height);
-		g2.setColor(c);
+//		g2.drawString(Boolean.toString(grounded), 100, 100);
+
+		// reset color
+		g2.setColor(c);		
 	}
-	
+
 }

@@ -10,19 +10,23 @@ import java.util.Set;
 public abstract class Entity extends Collision {
 	
 	// physical constants
-	private static final int GRAVITY = 30;
-	private final double MAX_VELOCITY = 30d;
+	private static final int GRAVITY = 1000;
+	private static final double epsilon = .1;
+	private final double MAX_VELOCITY = 3000d;
 	
-	protected int speed; int health;
+	protected int health, maxHealth;
+	protected int speed = 100; // default speed of 100
 	protected double vx, vy; // velocity x, and velocity y
 	protected boolean grounded = false;
 	private Foot foot;
 	
 	private long timeStamp = System.currentTimeMillis(); // timestamp in milliseconds for delta time
+	private GamePanel canvas; // to keep entities on screen or detect when they fall off
 	
-	public Entity(int x, int y, int width, int height) {
+	public Entity(int x, int y, int width, int height, GamePanel canvas) {
 		this.x = x; this.y = y; this.width = width; this.height = height;
 		this.foot = new Foot(x, y+height, width);
+		this.canvas = canvas;
 	}
 	
 	abstract public void die();
@@ -31,8 +35,21 @@ public abstract class Entity extends Collision {
 		double deltaTime = getDeltaTime();
 		
 		// apply gravity
-//		this.vy += GRAVITY * deltaTime;
+		if (!grounded) {
+			this.vy += GRAVITY * deltaTime;
+		}
 		
+		this.grounded = false;
+		
+		// collision with the bottom of the window
+		if (this.y+this.height > canvas.getHeight()-epsilon) { // TODO: get real window height
+			this.vy = 0d;
+			this.y = canvas.getHeight() - this.height; // snap to floor
+			this.grounded = true;
+		}
+		else this.grounded = false;
+		
+		// world collision
 		if (staticColliders != null) {
 			for (Collision c : staticColliders) {
 				// this would be more correct if you have a separate collision box just for the foot
@@ -54,17 +71,18 @@ public abstract class Entity extends Collision {
 		
 	}
 	
+	@Override
 	protected void setPosition(double x, double y) {
-		this.x = x;
-		this.y = y;
+		super.setPosition(x, y);
 		
 		this.foot.setPosition(x, y+this.height);
 	}
-	public void setPosition(int x, int y) {
-		setPosition((double)x,(double)y);
-	}
 	
 	// deltatime for physics
+	/**
+	 * get the difference in time from the call to the last call
+	 * @return deltatime in seconds
+	 */
 	protected double getDeltaTime() {
 		long newTime = System.currentTimeMillis();
 		long deltaMilis = newTime-timeStamp;
