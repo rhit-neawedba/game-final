@@ -95,16 +95,26 @@ public class Enemy extends Entity {
 //		
 //		//patrol pattern
 //		else {
-//			for(int i = 0; i < idleRadius; i++) {
-//				x+= speed;
-//			}
-//			Thread.sleep(25);
-//			for(int i = 0; i < idleRadius; i++) {
-//				x-= speed;
-//			}
-//			Thread.sleep(25);
-//		}
-	}
+			for(int i = 0; i < idleRadius; i++) {
+				x+= speed;
+			}
+			try {
+				Thread.sleep(25);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(int i = 0; i < idleRadius; i++) {
+				x-= speed;
+			}
+			try {
+				Thread.sleep(25);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+//	}
 	
 	public void attack(Player player) {
 //		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
