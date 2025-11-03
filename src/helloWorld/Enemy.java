@@ -27,6 +27,8 @@ public class Enemy extends Entity {
     private int idleFrameMax;
     /* where did these even come from and why?
      * - Skye
+     * i am trying my best github does not work and i am confused most of the time
+     *  - Ben
      */
 //    private long newTime = System.currentTimeMillis();
 //	private long timeStamp = newTime;
@@ -37,6 +39,7 @@ public class Enemy extends Entity {
 		super(x, y, width, height, canvas);
 		this.attackRadius = 40; //perhaps 40?
 		// definitely needs to be more than 40 - skye
+		// working on it
 		this.idleRadius = 100; //about 20?
 		this.damage = damage; //10?
 		this.vx = 100;
