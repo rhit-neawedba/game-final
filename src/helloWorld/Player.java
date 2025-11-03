@@ -16,6 +16,10 @@ public class Player extends Entity {
 	private static final double JUMP_VELOCITY = -800;
 	
 	private BufferedImage sprite;
+	private BufferedImage leftsprite;
+	private BufferedImage rightsprite;
+	private BufferedImage jumpsprite;
+	
 	boolean spritecreated;
 	
 	
@@ -35,6 +39,7 @@ public class Player extends Entity {
 	
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
+		
 	}
 	
 	public void jump() {
@@ -50,12 +55,39 @@ public class Player extends Entity {
 	public void die() {
 		// TODO Auto-generated method stub
 	}
-
+	// Sprite modification based on input @AnthonyDunn
 	public void draw(Graphics2D g2) {
 		Color c = g2.getColor();
 		if(spritecreated) {
-    		
-    		g2.drawImage(sprite, getX(), getY(), width, height, null);
+    		if(vx < 0) {
+    			try {
+					leftsprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
+					g2.drawImage(leftsprite, getX(), getY(), width, height, null);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    			
+    		}
+    		else if (vx > 0){
+    			try {
+					rightsprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
+					g2.drawImage(rightsprite, getX(), getY(), width, height, null);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    		else if (Math.abs(vy) > 0){
+    			try {
+					jumpsprite = ImageIO.read(Player.class.getResource("rosieJump.png"));
+					g2.drawImage(jumpsprite, getX(), getY(), width, height, null);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    		else g2.drawImage(sprite, getX(), getY(), width, height, null);
 		}
 		else {
 		g2.setColor(Color.RED);
