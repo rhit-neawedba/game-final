@@ -28,7 +28,7 @@ public class Enemy extends Entity {
 	private int deltatime;
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
-		super(x, y, width, height);
+		super(x, y, width, height, canvas);
 		this.attackRadius = attackRadius; //perhaps 40?
 		this.idleRadius = idleRadius; //about 20?
 		this.idleRadius = 100; //about 20?
