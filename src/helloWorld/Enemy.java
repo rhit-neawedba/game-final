@@ -182,6 +182,12 @@ public class Enemy extends Entity {
 	        g2.fillRect(getX(), getY(), width, height);
     	}
     }
+	
+	public void isAttacked(Player player) {
+		if(this.collidesWith(player) && player.getY() < this.getY()) { //in other words, if player lands on enemy from above 
+			this.die(); //maybe add some space in the getY term
+		}
+	}
 
 	@Override
 	public void die() {
