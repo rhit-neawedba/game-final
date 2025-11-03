@@ -16,9 +16,9 @@ public class Player extends Entity {
 	private static final double JUMP_VELOCITY = -800;
 	
 	private BufferedImage sprite;
-	private BufferedImage leftsprite;
-	private BufferedImage rightsprite;
-	private BufferedImage jumpsprite;
+	private BufferedImage leftSprite;
+	private BufferedImage rightSprite;
+	private BufferedImage jumpSprite;
 	
 	boolean spritecreated;
 	
@@ -61,8 +61,8 @@ public class Player extends Entity {
 		if(spritecreated) {
     		if(vx < 0) {
     			try {
-					leftsprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
-					g2.drawImage(leftsprite, getX(), getY(), width, height, null);
+					leftSprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
+					g2.drawImage(leftSprite, getX(), getY(), width, height, null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -71,8 +71,8 @@ public class Player extends Entity {
     		}
     		else if (vx > 0){
     			try {
-					rightsprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
-					g2.drawImage(rightsprite, getX(), getY(), width, height, null);
+					rightSprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
+					g2.drawImage(rightSprite, getX(), getY(), width, height, null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -80,8 +80,8 @@ public class Player extends Entity {
     		}
     		else if (Math.abs(vy) > 0){
     			try {
-					jumpsprite = ImageIO.read(Player.class.getResource("rosieJump.png"));
-					g2.drawImage(jumpsprite, getX(), getY(), width, height, null);
+					jumpSprite = ImageIO.read(Player.class.getResource("rosieJump.png"));
+					g2.drawImage(jumpSprite, getX(), getY(), width, height, null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
