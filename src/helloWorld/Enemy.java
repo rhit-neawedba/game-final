@@ -18,6 +18,7 @@ public class Enemy extends Entity {
 	int attackRadius;
 	int idleRadius;
 	int damage;
+	boolean hasDied = false;
 	Color color = new Color(255,145,1); 
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
@@ -27,6 +28,8 @@ public class Enemy extends Entity {
     private int idleFrameMax;
     /* where did these even come from and why?
      * - Skye
+     * i am trying my best github does not work and i am confused most of the time
+     *  - Ben
      */
 //    private long newTime = System.currentTimeMillis();
 //	private long timeStamp = newTime;
@@ -37,6 +40,7 @@ public class Enemy extends Entity {
 		super(x, y, width, height, canvas);
 		this.attackRadius = 40; //perhaps 40?
 		// definitely needs to be more than 40 - skye
+		// working on it i already said im bad at this
 		this.idleRadius = 100; //about 20?
 		this.damage = damage; //10?
 		this.vx = 100;
@@ -178,10 +182,16 @@ public class Enemy extends Entity {
 	        g2.fillRect(getX(), getY(), width, height);
     	}
     }
+	
+	public void isAttacked(Player player) {
+		if(this.collidesWith(player) && player.getY() < this.getY()) { //in other words, if player lands on enemy from above 
+			this.die(); //maybe add some space in the getY term
+		}
+	}
 
 	@Override
 	public void die() {
-		
+		this.hasDied = true;
 
 	}
 
