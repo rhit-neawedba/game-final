@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 /**
  * Enemy
  * Creates an Enemy
- * @author neawedba
+ * @author Benjamin Neawedde
  */
 public class Enemy extends Entity { 
 	int attackRadius;
@@ -25,7 +25,10 @@ public class Enemy extends Entity {
     private static final int IDLE_FRAME_MAX = 2000;
     private int idleFrameCount = 0;
     private int idleFrameMax;
-	private int deltatime;
+    private long newTime = System.currentTimeMillis();
+	private long timeStamp = newTime;
+	private long deltaMilis = newTime-timeStamp;
+	protected double deltatime = deltaMilis / 1.0e3;
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
