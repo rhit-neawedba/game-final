@@ -18,6 +18,7 @@ public class Enemy extends Entity {
 	int attackRadius;
 	int idleRadius;
 	int damage;
+	boolean hasDied = false;
 	Color color = new Color(255,145,1); 
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
@@ -39,7 +40,7 @@ public class Enemy extends Entity {
 		super(x, y, width, height, canvas);
 		this.attackRadius = 40; //perhaps 40?
 		// definitely needs to be more than 40 - skye
-		// working on it
+		// working on it i already said im bad at this
 		this.idleRadius = 100; //about 20?
 		this.damage = damage; //10?
 		this.vx = 100;
@@ -184,7 +185,7 @@ public class Enemy extends Entity {
 
 	@Override
 	public void die() {
-		
+		this.hasDied = true;
 
 	}
 

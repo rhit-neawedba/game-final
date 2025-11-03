@@ -41,5 +41,11 @@ public class GamePanel extends JPanel {
 			Graphics2D g2 = (Graphics2D) g;
 			player.draw(g2);
 			testEnemy.draw(g2);
+			
+			//the enemy deletion from: https://stackoverflow.com/questions/24692682/deleting-a-class-object-in-java
+			if (testEnemy.hasDied) {
+				testEnemy = null;
+				System.gc();
+			}
 		}
 	}
