@@ -25,20 +25,23 @@ public class Enemy extends Entity {
     private static final int IDLE_FRAME_MAX = 2000;
     private int idleFrameCount = 0;
     private int idleFrameMax;
-    private long newTime = System.currentTimeMillis();
-	private long timeStamp = newTime;
-	private long deltaMilis = newTime-timeStamp;
-	protected double deltatime = deltaMilis / 1.0e3;
+    /* where did these even come from and why?
+     * - Skye
+     */
+//    private long newTime = System.currentTimeMillis();
+//	private long timeStamp = newTime;
+//	private long deltaMilis = newTime-timeStamp;
+//	protected double deltatime = deltaMilis / 1.0e3;
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
-		this.attackRadius = attackRadius; //perhaps 40?
-		this.idleRadius = idleRadius; //about 20?
+		this.attackRadius = 40; //perhaps 40?
+		// definitely needs to be more than 40 - skye
 		this.idleRadius = 100; //about 20?
 		this.damage = damage; //10?
 		this.vx = 100;
 		
-		System.out.println(this.idleRadius/this.vx);
+//		System.out.println(this.idleRadius/this.vx);
 
 		try {
 			sprite =  ImageIO.read(Enemy.class.getResource("enemy.png")); 
@@ -112,8 +115,8 @@ public class Enemy extends Entity {
 				&& player.getX() < this.getX()) {
 			this.vx = -speed;
 		}
-//@@ -108,73 +109,74 @@
-		/* from the stack overflow question referenced in the javadoc
+
+ 		/* from the stack overflow question referenced in the javadoc
 		 * 
 		 * "If this is in a Swing GUI, then get rid of all calls to
 		 * Thread.sleep(...) as doing so can put the entire GUI to 
@@ -137,15 +140,13 @@ public class Enemy extends Entity {
 //	}
 
 		else {
-			if (idleFrameCount == IDLE_FRAME_MAX) { // after a number of ticks, flip change the enemy direction
 //			System.out.printf("%f - %f\n", idleFrameCount*deltatime,this.idleRadius/this.vx);
 			if (idleFrameCount*deltatime >= Math.abs(this.idleRadius/this.vx)) { // after a number of ticks, flip change the enemy direction
 				vx = -vx;
 				idleFrameCount = 0; // reset the frame count to 0 to restart the cycle
 			}
-			idleFrameCount += IDLE_FRAME_MAX;
 			idleFrameCount += 1;
-		}}		
+		}
 
 	}
 
@@ -186,7 +187,7 @@ public class Enemy extends Entity {
 
 	public void tick(Collision[] staticColliders, Player player) {
 		applyPhysics(staticColliders);
-		System.out.printf("%f,%f",x,y);
+//		System.out.printf("%f,%f",x,y);
 //		System.out.printf("%f,%f",x,y);
 		this.trackPlayer(player);
 	}
