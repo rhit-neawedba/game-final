@@ -11,10 +11,10 @@ public class Platform {
 	int x, y;
 	int width,height;
     Color color = Color.RED;
-   private BufferedImage sprite;
-   private boolean spritecreated = false;
+    private BufferedImage sprite;
+    private boolean spritecreated = false;
     
-    public Platform(int x, int y, int width, int height) {
+    public Platform(int x, int y, int width, int height, GamePanel panel) {
         this.x = x;
         this.y = y;
         try {
