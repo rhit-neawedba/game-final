@@ -1,6 +1,6 @@
 package helloWorld;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Level
- * creates hard coded levels
+ * creates hard coded levels that are painted on the game panel
  * @author nelsonmp
  * 
  * Resources used:
