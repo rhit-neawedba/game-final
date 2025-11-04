@@ -20,6 +20,11 @@ public class GamePanel extends JPanel {
 			testEnemy = new Enemy(500, 0, 50, 50, this);
 			level = new Level(1,this);
 			
+			if (testEnemy.hasDied) {
+				testEnemy = null;
+				System.gc();
+			}
+			
 			setPreferredSize(new Dimension(800,600));
 			setBackground(Color.white);
 			setFocusable(true);
