@@ -1,5 +1,7 @@
 package helloWorld;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  * @author Skye Willis
