@@ -25,6 +25,7 @@ public class Player extends Entity {
 	private BufferedImage jumpSprite;
 	
 	boolean spritecreated;
+	private boolean facingRight = false;
 	
 	
 	public Player(int x, int y, GamePanel canvas) {
@@ -41,6 +42,8 @@ public class Player extends Entity {
 	}
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
+		if (dirx > 0) facingRight = true;
+		else if (dirx < 0 ) facingRight = false;
 	}
 	
 	public void jump() {
@@ -63,7 +66,7 @@ public class Player extends Entity {
 		Color c = g2.getColor();
 		
 		if(spritecreated) {
-    		if(vx < 0) {
+    		if(!facingRight) {
     			try {
 					leftSprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
 					g2.drawImage(leftSprite, getX(), getY(), width, height, null);
@@ -72,7 +75,7 @@ public class Player extends Entity {
 					e.printStackTrace();
 				}
     		}
-    		else if (vx > 0){
+    		else if (facingRight){
     			try {
 					rightSprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
 					g2.drawImage(rightSprite, getX(), getY(), width, height, null);
