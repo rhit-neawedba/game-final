@@ -10,9 +10,11 @@ import java.awt.event.KeyEvent;
 public class Player extends Entity {
 	private static final int PLAYER_HEIGHT=50, PLAYER_WIDTH=30;
 	private static final double JUMP_VELOCITY = -1200;
+	public boolean playerDied = false;
 
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
+		super.health = 100;
 	}
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
@@ -27,7 +29,6 @@ public class Player extends Entity {
 			pauseFootCollision(1);
 		}
 	}
-	
 
 	@Override
 	public void die() {
