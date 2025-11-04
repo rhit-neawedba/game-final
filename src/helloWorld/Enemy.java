@@ -21,6 +21,7 @@ public class Enemy extends Entity {
 	Color color = new Color(255,145,1); 
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
+    public boolean hasDied = false;
 
     private static final int IDLE_FRAME_MAX = 2000;
     private int idleFrameCount = 0;
@@ -28,10 +29,10 @@ public class Enemy extends Entity {
     /* where did these even come from and why?
      * - Skye
      */
-//    private long newTime = System.currentTimeMillis();
-//	private long timeStamp = newTime;
-//	private long deltaMilis = newTime-timeStamp;
-//	protected double deltatime = deltaMilis / 1.0e3;
+    private long newTime = System.currentTimeMillis();
+	private long timeStamp = newTime;
+	private long deltaMilis = newTime-timeStamp;
+	protected double deltatime = deltaMilis / 1.0e3;
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
@@ -179,9 +180,15 @@ public class Enemy extends Entity {
     	}
     }
 
+	public void isAttacked(Player player) {
+		if(this.collidesWith(player) && player.getY() < this.getY()) { //in other words, if player lands on enemy from above 
+			this.die(); //maybe add some space in the getY term
+		}
+	}
+
 	@Override
 	public void die() {
-		
+		this.hasDied = true;
 
 	}
 
