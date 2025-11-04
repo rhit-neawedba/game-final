@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Platform {
+public class Platform extends Collision {
 
-	int x, y;
-	int width,height;
+//	int x, y;
+//	int width,height;
     Color color = Color.RED;
     private BufferedImage sprite;
     private boolean spritecreated = false;
@@ -17,6 +17,8 @@ public class Platform {
     public Platform(int x, int y, int width, int height, GamePanel panel) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         try {
 			sprite = ImageIO.read(Platform.class.getResource("platform.png"));
 			spritecreated = true;
@@ -31,19 +33,20 @@ public class Platform {
 
     public void draw(Graphics2D g2) {
     	if (spritecreated) {
-    		int drawX = x - (width/2);
-    		int drawY = y - (height/2);
+    		int drawX = getX();
+    		int drawY = getY();
     		
     		g2.drawImage(sprite, drawX, drawY, width, height, null);
     	}
     	
     	else {
         g2.setColor(color);
-        g2.fillRect(x - (width/2), y - (height/2), width, height);
+        g2.fillRect(getX(), getY(), width, height);
     	}
+    	
+//    	drawHitbox(g2);
+    	
     }
-
-
     
 }
 

@@ -10,7 +10,7 @@ import java.util.Set;
 public abstract class Entity extends Collision {
 	
 	// physical constants
-	private static final int GRAVITY = 1000;
+	private static final int GRAVITY = 2000;
 	private static final double epsilon = .1;
 	private final double MAX_VELOCITY = 3000d;
 	
@@ -19,6 +19,7 @@ public abstract class Entity extends Collision {
 	protected double vx, vy; // velocity x, and velocity y
 	protected boolean grounded = false;
 	private Foot foot;
+	private UpperBody upperBody;
 	
 	private long timeStamp = System.currentTimeMillis(); // timestamp in milliseconds for delta time
 	protected double deltatime;
@@ -27,6 +28,7 @@ public abstract class Entity extends Collision {
 	public Entity(int x, int y, int width, int height, GamePanel canvas) {
 		this.x = x; this.y = y; this.width = width; this.height = height;
 		this.foot = new Foot(x, y+height, width);
+		this.upperBody = new UpperBody(x, y, width, height);
 		this.canvas = canvas;
 	}
 	
@@ -47,17 +49,31 @@ public abstract class Entity extends Collision {
 			this.y = canvas.getHeight() - this.height; // snap to floor
 			this.grounded = true;
 		}
-		else this.grounded = false;
 		
 		// world collision
 		if (staticColliders != null) {
 			for (Collision c : staticColliders) {
-				// this would be more correct if you have a separate collision box just for the foot
-				if (foot.collidesWith(c)) {
+				// body collision
+				if (collidesWith(c) && !foot.collidesWith(c)) {
+//					System.out.printf("(%f,%f)\n", x-tempx, y-tempy);
+					boolean upperCollide = upperBody.collidesWith(c);
+					for(int i = 0; collidesWith(c) && i < 10; i++) {
+						int sign = (i % 2) * 2-1;
+						x -= 0.1d*sign*i;
+						if (!upperCollide) y -= vy*deltatime*sign*i;
+						else y += i;
+					}
+					if (!upperCollide) vy = 0;
+				}
+				
+				// foot collision
+				if (foot.collidesWith(c) && !foot.isPaused(deltatime)) {
 					this.vy = 0d;
 					this.grounded = true;
+					this.y = c.y - this.height;
 				}
-				else this.grounded = true;
+				
+//				else this.grounded |= false;
 			}
 		}
 		
@@ -71,11 +87,15 @@ public abstract class Entity extends Collision {
 		
 	}
 	
-	@Override
 	protected void setPosition(double x, double y) {
 		super.setPosition(x, y);
 		
 		this.foot.setPosition(x, y+this.height);
+		this.upperBody.setPosition(x, y);
+	}
+	
+	protected void pauseFootCollision(double time) {
+		foot.pause(time/1E3d);
 	}
 	
 	// deltatime for physics
@@ -84,10 +104,12 @@ public abstract class Entity extends Collision {
 	 * @return deltatime in seconds
 	 */
 	private void getDeltaTime() {
-		long newTime = System.currentTimeMillis();
-		long deltaMilis = newTime-timeStamp;
-		timeStamp = newTime;
-		deltatime = deltaMilis / 1.0e3;
+		deltatime = .001d;
+		return;
+//		long newTime = System.currentTimeMillis();
+//		long deltaMilis = newTime-timeStamp;
+//		timeStamp = newTime;
+//		deltatime = deltaMilis / 1.0e3;
 	}
 	
 	/**
@@ -96,6 +118,11 @@ public abstract class Entity extends Collision {
 	 */
 	abstract public void draw(Graphics2D g2);
 	
+//	public void d(Graphics2D g2) {
+//		this.foot.d(g2);
+//		this.upperBody.d(g2);
+//	}
+	
 }
 
 /**
@@ -103,18 +130,56 @@ public abstract class Entity extends Collision {
  * acts as a collider to help Entity detect when it is on the ground
  */
 class Foot extends Collision {
-	private static final int HEIGHT = 10;
+	private static final int HEIGHT = 3;
+	private double footPause = 0;
 	
 	public Foot(int x, int y, int width) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
+		this.width = width-2;
 		this.height = HEIGHT;
 	}
-	
-	public void setPosition(double x, double y) {
-		this.x = x;
-		this.y = y;
+
+	public void pause(double time) {
+		footPause = time;
 	}
 	
+	public boolean isPaused(double deltatime) {
+		if (footPause > 0) {
+			footPause -= deltatime;
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public void setPosition(double x, double y) {
+		super.setPosition(x+1, y);
+	}
+	
+	// debug hitbox draw
+//	public void d(Graphics2D g2) {
+//		g2.drawRect(getX(), getY(), width, height);
+//	}
+	
+}
+
+class UpperBody extends Collision{
+	private static int EXPAND = 4;
+	private static int HEAD_EXPAND = 10;
+	public UpperBody(int x, int y, int width, int height) {
+		this.x = x-EXPAND*2;
+		this.y = y+HEAD_EXPAND;
+		this.width = width+4*EXPAND;
+		this.height = height-1-HEAD_EXPAND;
+	}
+	
+	@Override
+	public void setPosition(double x, double y) {
+		super.setPosition(x-EXPAND*2, y+HEAD_EXPAND);
+	}
+	
+//	public void d(Graphics2D g2) {
+//		g2.drawRect(getX(), getY(), width, height);
+//	}
 }

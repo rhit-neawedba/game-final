@@ -1,5 +1,6 @@
 package helloWorld;
 
+
 /**
  * @author Skye Willis
  * contains a basic implementation to detect rectangular hitbox collision
@@ -17,6 +18,10 @@ public abstract class Collision {
 	 * @return true if colliding
 	 */
 	public boolean collidesWith(Collision other) {
+		if (other == null) {
+			System.err.println("collider is null");
+			return false;
+		}
 		return  this.x + this.width >= other.x &&
 				this.x <= other.x + other.width &&
 				this.y + this.height >= other.y &&
@@ -34,5 +39,10 @@ public abstract class Collision {
 	}
 	public void setPosition(int x, int y) {
 		setPosition((double)x,(double)y);
+	}
+	
+	protected void drawHitbox(Graphics2D g2) {
+		g2.setColor(Color.black);
+		g2.drawRect(getX(), getY(), width, height);
 	}
 }
