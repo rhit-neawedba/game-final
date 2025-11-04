@@ -152,16 +152,19 @@ public class Enemy extends Entity {
 	}
 
 	public void attack(Player player) {
-//		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
-//			if (player.getX() > this.getX()) {
-//				player.loseHealth(damage);
-//				this.x = this.x + 1;
-//			}
-//			else if (player.getX() < this.getX()) {
-//				player.loseHealth(damage);
-//				this.x = this.x - 1;
-//			}
-//		}
+		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
+			if (player.getX() > this.getX()) {
+				player.health -= damage;
+				this.x = this.x + 1;
+			}
+			else if (player.getX() < this.getX()) {
+				player.health -= damage;
+				this.x = this.x - 1;
+			}
+		}
+		if (player.health <= 0) {
+			player.playerDied = true;
+		}
 	}
 
 	/**
