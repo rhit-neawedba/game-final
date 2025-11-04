@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -193,7 +194,7 @@ public class Enemy extends Entity {
 	}
 
 
-	public void tick(Collision[] staticColliders, Player player) {
+	public void tick(List<Platform> staticColliders, Player player) {
 		applyPhysics(staticColliders);
 //		System.out.printf("%f,%f",x,y);
 //		System.out.printf("%f,%f",x,y);
