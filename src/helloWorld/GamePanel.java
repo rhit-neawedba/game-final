@@ -13,10 +13,12 @@ public class GamePanel extends JPanel {
 	Player player;
 	Enemy testEnemy;
 	Timer timer;
+	Level level;
 	
 		public GamePanel() {
 			player = new Player(0, 0, this);
 			testEnemy = new Enemy(500, 0, 50, 50, this);
+			level = new Level(1,this);
 			
 			setPreferredSize(new Dimension(800,600));
 			setBackground(Color.white);
@@ -39,13 +41,8 @@ public class GamePanel extends JPanel {
 			g.setColor(Color.WHITE);
 			
 			Graphics2D g2 = (Graphics2D) g;
+			level.draw(g2);
 			player.draw(g2);
 			testEnemy.draw(g2);
-			
-			//the enemy deletion from: https://stackoverflow.com/questions/24692682/deleting-a-class-object-in-java
-			if (testEnemy.hasDied) {
-				testEnemy = null;
-				System.gc();
-			}
 		}
 	}

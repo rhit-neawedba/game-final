@@ -71,7 +71,6 @@ public abstract class Entity extends Collision {
 		
 	}
 	
-	@Override
 	protected void setPosition(double x, double y) {
 		super.setPosition(x, y);
 		
