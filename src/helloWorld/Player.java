@@ -9,12 +9,11 @@ import java.awt.event.KeyEvent;
  */
 public class Player extends Entity {
 	private static final int PLAYER_HEIGHT=50, PLAYER_WIDTH=30;
-	private static final double JUMP_VELOCITY = -800;
+	private static final double JUMP_VELOCITY = -1200;
 
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
 	}
-	
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
 	}
@@ -24,6 +23,8 @@ public class Player extends Entity {
 			this.vy = JUMP_VELOCITY;
 			this.grounded = false;
 			this.y -= 5;
+			
+			pauseFootCollision(1);
 		}
 	}
 	
@@ -40,7 +41,9 @@ public class Player extends Entity {
 //		g2.drawString(Boolean.toString(grounded), 100, 100);
 
 		// reset color
-		g2.setColor(c);		
+		g2.setColor(c);
+//		drawHitbox(g2);
+//		d(g2);
 	}
 
 }
