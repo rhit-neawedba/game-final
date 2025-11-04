@@ -55,7 +55,7 @@ public class Player extends Entity {
 	public void die() {
 		// TODO Auto-generated method stub
 	}
-	// Sprite modification based on input @AnthonyDunn
+	// Sprite switching @AnthonyDunn
 	public void draw(Graphics2D g2) {
 		Color c = g2.getColor();
 		if(spritecreated) {
