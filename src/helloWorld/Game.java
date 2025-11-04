@@ -8,7 +8,7 @@ public class Game {
 
 	    
 	 public Game() {
-		 	frame = new JFrame("Final Project - Game Name TBD");
+		 	frame = new JFrame("Rosie's Gambit");
 		 	panel = new GamePanel();
 		 	
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
