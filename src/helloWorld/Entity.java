@@ -2,6 +2,8 @@ package helloWorld;
 
 import java.awt.Graphics2D;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,7 +35,7 @@ public abstract class Entity extends Collision {
 	}
 	
 	abstract public void die();
-	public void applyPhysics(Collision[] staticColliders) {
+	public void applyPhysics(List<Platform> staticColliders) {
 		getDeltaTime();
 		
 		// apply gravity
@@ -104,12 +106,12 @@ public abstract class Entity extends Collision {
 	 * @return deltatime in seconds
 	 */
 	private void getDeltaTime() {
-		deltatime = .001d;
-		return;
-//		long newTime = System.currentTimeMillis();
-//		long deltaMilis = newTime-timeStamp;
-//		timeStamp = newTime;
-//		deltatime = deltaMilis / 1.0e3;
+//		deltatime = .001d;
+//		return;
+		long newTime = System.currentTimeMillis();
+		long deltaMilis = newTime-timeStamp;
+		timeStamp = newTime;
+		deltatime = deltaMilis / 1.0e3;
 	}
 	
 	/**
