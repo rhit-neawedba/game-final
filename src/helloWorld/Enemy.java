@@ -37,7 +37,7 @@ public class Enemy extends Entity {
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
-		this.attackRadius = 40; //perhaps 40?
+		this.attackRadius = 70; //perhaps 40?
 		// definitely needs to be more than 40 - skye
 		this.idleRadius = 100; //about 20?
 		this.damage = damage; //10?
@@ -153,7 +153,8 @@ public class Enemy extends Entity {
 	}
 
 	public void attack(Player player) {
-		if (player.getY() == this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius) {
+		if (player.getY() <= 10 + this.getY() && player.getY() >= 10 - this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius && player.vy <= 0) { //may change 10
+			//Conditions: Player's y is between 10 + enemy and 10 - enemy and within attack radius and player is not falling into enemy
 			if (player.getX() > this.getX()) {
 				player.health -= damage;
 				this.x = this.x + 1;
