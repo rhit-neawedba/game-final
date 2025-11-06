@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Level {
     
-    private List<Platform> platforms;
+    public List<Platform> platforms;
     private List<Enemy> enemies;
     
     public Level(int levelNumber, GamePanel panel) {
