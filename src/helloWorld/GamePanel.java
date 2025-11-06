@@ -14,11 +14,16 @@ public class GamePanel extends JPanel {
 	Enemy testEnemy;
 	Timer timer;
 	Level level;
+	HudViewer hudView;
+	HudModel hud;
+
 	
 		public GamePanel() {
 			player = new Player(0, 0, this);
 			testEnemy = new Enemy(500, 0, 50, 50, this);
 			level = new Level(1,this);
+			//this.add(hudView);
+		
 			
 			//this term from: https://stackoverflow.com/questions/16535475/how-to-delete-a-class-object?noredirect=1&lq=1
 			if (testEnemy.hasDied) {

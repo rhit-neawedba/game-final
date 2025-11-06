@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  */
 public class Player extends Entity {
 	private static final int PLAYER_HEIGHT=50, PLAYER_WIDTH=30;
-	private static final double JUMP_VELOCITY = -1200;
+	private static final double JUMP_VELOCITY = -1000;
 	public boolean playerDied = false;
 
 	private BufferedImage sprite;
