@@ -39,10 +39,18 @@ public class Enemy extends Entity {
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
 		Random rand = new Random();
-		this.attackRadius = 70;
-		this.idleRadius = 100; 
-		this.damage = 10;
-		this.vx = 100;
+		if (rand.nextInt(25) == 0) { // decrease value to increase probability of Tier II Enemies
+			this.attackRadius = 100;
+			this.idleRadius = 120; 
+			this.damage = 15;
+			this.vx = 120;
+		}
+		else {
+			this.attackRadius = 70;
+			this.idleRadius = 100; 
+			this.damage = 10;
+			this.vx = 100;
+		}
 		
 //		System.out.println(this.idleRadius/this.vx);
 
