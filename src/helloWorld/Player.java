@@ -5,16 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 /**
  * @author Skye Willis
  */
-
-
-
-
 public class Player extends Entity {
 	private static final int PLAYER_HEIGHT=50, PLAYER_WIDTH=30;
 	private static final double JUMP_VELOCITY = -1200;
@@ -28,12 +25,13 @@ public class Player extends Entity {
 	boolean spritecreated;
 	private boolean facingRight = false;
 	
+	public int score;
+	
 	
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
-//<<<<<<< HEAD
 		super.health = 100;
-//=======
+		score = 0;
 		
 		try {
 			sprite = ImageIO.read(Player.class.getResource("rosie.png"));
@@ -43,7 +41,6 @@ public class Player extends Entity {
 			spritecreated = false;
 			//e.printStackTrace();
 		}
-//>>>>>>> branch 'main' of https://github.com/rhit-neawedba/game-final.git
 	}
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
@@ -64,6 +61,22 @@ public class Player extends Entity {
 	@Override
 	public void die() {
 		// TODO Auto-generated method stub
+	}
+	
+	private void checkCollection(List<Collectible> collectibles) {
+		for (Collectible c : collectibles) {
+			if (collidesWith(c) && !c.hasBeenCollected()) collect(c);
+		}
+	}
+	
+	private void collect(Collectible c) {
+		score += 1;
+		c.collect();
+	}
+	
+	public void tick(List<Platform> staticColliders, List<Collectible> collectibles) {
+		super.applyPhysics(staticColliders);
+		checkCollection(collectibles);
 	}
 
 	public void draw(Graphics2D g2) {
@@ -108,6 +121,6 @@ public class Player extends Entity {
 //		drawHitbox(g2);
 //		d(g2);
 		}
-    		}
+    }
 
 }

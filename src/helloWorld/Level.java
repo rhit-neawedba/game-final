@@ -20,15 +20,19 @@ public class Level {
     
     private List<Platform> platforms;
     private List<Enemy> enemies;
+    private List<Collectible> collectibles;
     
     public Level(int levelNumber, GamePanel panel) {
         platforms = new ArrayList<>();
         enemies = new ArrayList<>();
+        collectibles = new ArrayList<Collectible>();
+        
         
         if (levelNumber == 1) {
             // Adds platforms
             platforms.add(new Platform(100, 400, 500, 50, panel));
             platforms.add(new Platform(200, 500, 600, 16, panel));
+            collectibles.add(new Collectible(100, 100));
             
             // Adds enemies
             enemies.add(new Enemy(500, 0, 50, 50, panel));
@@ -47,7 +51,7 @@ public class Level {
     }
     
     public void applyPhysics(Player player) {
-    	player.applyPhysics(platforms);
+    	player.tick(platforms, collectibles);
     	for (Enemy e : enemies) {
     		e.tick(platforms, player);
     	}
@@ -60,6 +64,9 @@ public class Level {
         for (Enemy e : enemies) {
             e.draw(g2);
         }
+        for (Collectible c : collectibles) {
+    		c.draw(g2);
+    	}
     }
     
     

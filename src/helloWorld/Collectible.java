@@ -6,17 +6,20 @@ import java.awt.Color;
 	import java.io.IOException;
 	import javax.imageio.ImageIO;
 
-public class Collectible {
-int x, y;
-	    int dx = 3, dy = 2;
-	    int radius = 15;
-	    Color color = Color.RED;
-	   private BufferedImage sprite;
-	   private boolean spritecreated = false;
+public class Collectible extends Collision{
+//	    int dx = 3, dy = 2;
+	    private int radius = 15;
+	    private Color color = Color.RED;
+	    private BufferedImage sprite;
+	    private boolean spritecreated = false;
+	    private boolean collected;
 	    
-	    public Collectible(int x, int y) {
+	    public Collectible(double x, double y) {
 	        this.x = x;
 	        this.y = y;
+	        this.width = radius*2;
+	        this.height = radius*2;
+	        this.collected = false;
 	        try {
 				sprite = ImageIO.read(Collectible.class.getResource("collectible.png"));
 				spritecreated = true;
@@ -30,18 +33,27 @@ int x, y;
 
 
 	    public void draw(Graphics2D g2) {
+	    	if (collected) return;
 	    	if (spritecreated) {
-	    		int drawX = x - radius;
-	    		int drawY = y - radius;
+//	    		int drawX = x - radius;
+//	    		int drawY = y - radius;
 	    		int size = radius*2;
 	    		
-	    		g2.drawImage(sprite, drawX, drawY, size, size, null);
+	    		g2.drawImage(sprite, getX(), getY(), size, size, null);
 	    	}
 	    	
 	    	else {
 	        g2.setColor(color);
-	        g2.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+	        g2.fillRect(getX(), getY(), radius * 2, radius * 2);
 	    	}
+	    }
+	    
+	    public boolean hasBeenCollected() {
+	    	return collected;	
+	    }
+	    
+	    public void collect() {
+	    	collected = true;
 	    }
 
 	    /*public void move(int width, int height) {
