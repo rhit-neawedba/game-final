@@ -7,6 +7,7 @@ public class Controller extends KeyAdapter {
 	// may be work adding a boolean[] for keys pressed
 	
 	private Player player;
+	private boolean shooting;
 	
 	public Controller(Player player) {
 		this.player = player;
@@ -19,7 +20,12 @@ public class Controller extends KeyAdapter {
 			case KeyEvent.VK_D -> player.move(1);
 			case KeyEvent.VK_A -> player.move(-1);
 			case KeyEvent.VK_SPACE -> player.jump();
-		}
+			case KeyEvent.VK_ENTER -> { 
+				if (!shooting) player.jump();
+			}
+				
+			};
+		
 	}
 
 	@Override
