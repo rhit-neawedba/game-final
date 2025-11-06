@@ -51,7 +51,7 @@ public class Level {
     }
     
     public void applyPhysics(Player player) {
-    	player.tick(platforms, collectibles);
+    	player.tick(platforms, enemies, collectibles);
     	for (Enemy e : enemies) {
     		e.tick(platforms, player);
     	}

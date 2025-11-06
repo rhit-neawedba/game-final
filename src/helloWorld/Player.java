@@ -25,8 +25,7 @@ public class Player extends Entity {
 	boolean spritecreated;
 	private boolean facingRight = false;
 	
-	public int score;
-	
+	public int score;	
 	
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
@@ -63,6 +62,13 @@ public class Player extends Entity {
 		// TODO Auto-generated method stub
 	}
 	
+	private void enemyCollision(List<Enemy> enemies) {
+		for (Enemy e : enemies) {
+			if (collidesWith(e) && this.vy <= e.getVy() ) health -= e.damage;
+		}
+		if (health < 0) isDead = true;
+	}
+	
 	private void checkCollection(List<Collectible> collectibles) {
 		for (Collectible c : collectibles) {
 			if (collidesWith(c) && !c.hasBeenCollected()) collect(c);
@@ -74,8 +80,9 @@ public class Player extends Entity {
 		c.collect();
 	}
 	
-	public void tick(List<Platform> staticColliders, List<Collectible> collectibles) {
+	public void tick(List<Platform> staticColliders, List<Enemy> enemies, List<Collectible> collectibles) {
 		super.applyPhysics(staticColliders);
+		enemyCollision(enemies);
 		checkCollection(collectibles);
 	}
 

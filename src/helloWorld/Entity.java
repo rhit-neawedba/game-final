@@ -27,6 +27,8 @@ public abstract class Entity extends Collision {
 	protected double deltatime;
 	private GamePanel canvas; // to keep entities on screen or detect when they fall off
 	
+	public boolean isDead = false;
+	
 	public Entity(int x, int y, int width, int height, GamePanel canvas) {
 		this.x = x; this.y = y; this.width = width; this.height = height;
 		this.foot = new Foot(x, y+height, width);
@@ -95,6 +97,9 @@ public abstract class Entity extends Collision {
 		this.foot.setPosition(x, y+this.height);
 		this.upperBody.setPosition(x, y);
 	}
+	
+	public double getVy() { return this.vy; }
+	public double getVx() { return this.vx; }
 	
 	protected void pauseFootCollision(double time) {
 		foot.pause(time/1E3d);
