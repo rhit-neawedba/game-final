@@ -25,8 +25,9 @@ public class Player extends Entity {
 	boolean spritecreated;
 	private boolean facingRight = false;
 	
-	public int score;
-	
+	private static final int MAX_IFRAMES = 30;
+	private int iframes = 0;
+	public int score;	
 	
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
@@ -60,7 +61,19 @@ public class Player extends Entity {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
+		isDead = true;
+		System.out.println("dead");
+	}
+	
+	private void enemyCollision(List<Enemy> enemies) {
+		for (Enemy e : enemies) {
+			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
+				health -= e.damage;
+				iframes = MAX_IFRAMES;
+			}
+		}
+		if (health < 0) die();
+		if (iframes > 0) iframes -= 1;
 	}
 	
 	private void checkCollection(List<Collectible> collectibles) {
@@ -74,8 +87,9 @@ public class Player extends Entity {
 		c.collect();
 	}
 	
-	public void tick(List<Platform> staticColliders, List<Collectible> collectibles) {
+	public void tick(List<Platform> staticColliders, List<Enemy> enemies, List<Collectible> collectibles) {
 		super.applyPhysics(staticColliders);
+		enemyCollision(enemies);
 		checkCollection(collectibles);
 	}
 

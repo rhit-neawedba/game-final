@@ -30,11 +30,12 @@ public class Enemy extends Entity {
     private int idleFrameMax;
     /* where did these even come from and why?
      * - Skye
+     * this is what is breaking the idle cycle
      */
-    private long newTime = System.currentTimeMillis();
-	private long timeStamp = newTime;
-	private long deltaMilis = newTime-timeStamp;
-	protected double deltatime = deltaMilis / 1.0e3;
+//    private long newTime = System.currentTimeMillis();
+//	private long timeStamp = newTime;
+//	private long deltaMilis = newTime-timeStamp;
+//	protected double deltatime = deltaMilis / 1.0e3;
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
