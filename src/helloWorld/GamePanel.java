@@ -31,8 +31,7 @@ public class GamePanel extends JPanel {
 			setFocusable(true);
 			
 			timer = new Timer(8, e -> {
-				player.applyPhysics(level.platforms);
-				testEnemy.tick(level.platforms, player);
+				level.applyPhysics(player);
 				repaint();
 			});
 			timer.start();

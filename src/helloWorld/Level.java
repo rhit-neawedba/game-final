@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Level {
     
-    public List<Platform> platforms;
+    private List<Platform> platforms;
     private List<Enemy> enemies;
     
     public Level(int levelNumber, GamePanel panel) {
@@ -44,6 +44,13 @@ public class Level {
             
             enemies.add(new Enemy(250, 300, 50, 50, panel));
         }
+    }
+    
+    public void applyPhysics(Player player) {
+    	player.applyPhysics(platforms);
+    	for (Enemy e : enemies) {
+    		e.tick(platforms, player);
+    	}
     }
     
     public void draw(Graphics2D g2) {
