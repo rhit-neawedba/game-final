@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -37,10 +38,10 @@ public class Enemy extends Entity {
 
 	public Enemy(int x, int y, int width, int height, GamePanel canvas) {
 		super(x, y, width, height, canvas);
-		this.attackRadius = 70; //perhaps 40?
-		// definitely needs to be more than 40 - skye
-		this.idleRadius = 100; //about 20?
-		this.damage = damage; //10?
+		Random rand = new Random();
+		this.attackRadius = 70;
+		this.idleRadius = 100; 
+		this.damage = 10;
 		this.vx = 100;
 		
 //		System.out.println(this.idleRadius/this.vx);
