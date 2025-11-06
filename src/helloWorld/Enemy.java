@@ -41,16 +41,18 @@ public class Enemy extends Entity {
 		super(x, y, width, height, canvas);
 		Random rand = new Random();
 		if (rand.nextInt(25) == 0) { // decrease value to increase probability of Tier II Enemies
-			this.attackRadius = 100;
+			this.attackRadius = 180;
 			this.idleRadius = 120; 
 			this.damage = 15;
 			this.vx = 120;
+			this.speed = 85;
 		}
 		else {
-			this.attackRadius = 70;
+			this.attackRadius = 140;
 			this.idleRadius = 100; 
 			this.damage = 10;
 			this.vx = 100;
+			this.speed = 75;
 		}
 		
 //		System.out.println(this.idleRadius/this.vx);
