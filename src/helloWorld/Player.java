@@ -157,5 +157,15 @@ public class Player extends Entity {
 	public void setFacingRight(boolean facingRight) {
 		this.facingRight = facingRight;
 	}
+	
+	private boolean pressingDown = false;
+
+	public void setPressingDown(boolean pressingDown) {
+	    this.pressingDown = pressingDown;
+	}
+
+	public boolean isPressingDown() {
+	    return pressingDown;
+	}
 
 }

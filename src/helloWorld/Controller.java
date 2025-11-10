@@ -23,6 +23,7 @@ public class Controller extends KeyAdapter {
 			case KeyEvent.VK_ENTER -> { 
 				if (!shooting) player.jump();
 			}
+			case KeyEvent.VK_S -> player.setPressingDown(true);
 				
 			};
 		
@@ -35,6 +36,7 @@ public class Controller extends KeyAdapter {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_D -> player.move(0);
 			case KeyEvent.VK_A -> player.move(0);
+			case KeyEvent.VK_S -> player.setPressingDown(false);
 		}
 	}
 	

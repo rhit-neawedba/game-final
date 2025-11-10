@@ -22,11 +22,16 @@ public class Level {
     public List<Platform> platforms;
     private List<Enemy> enemies;
     private List<Collectible> collectibles;
+    private HudModel hudModel;
+    private HudViewer hudViewer;
     
-    public Level(int levelNumber, GamePanel panel) {
+    public Level(int levelNumber, GamePanel panel, HudModel hudModel, HudViewer hudViewer) {
+    	this.hudModel = hudModel;
+    	this.hudViewer = hudViewer;
         platforms = new ArrayList<>();
         enemies = new ArrayList<>();
         collectibles = new ArrayList<>();
+        
         
         if (levelNumber == 1) {
             // Adds platforms
@@ -68,26 +73,24 @@ public class Level {
     public void update(Player player) {
         for (Enemy e : enemies) {
             e.tick(platforms, player);
+
         }
         
         // https://www.w3schools.com/java/java_iterator.asp Used to help with iterator code 
-        for (Iterator<Collectible> it = collectibles.iterator(); it.hasNext();) {
+        Iterator<Collectible> it = collectibles.iterator();
+        while (it.hasNext()) {
             Collectible c = it.next();
-            if (player.collidesWith(c)) {
-                it.remove();
+
+            if (!c.hasBeenCollected() && player.collidesWith(c)) {
+                if (player.isPressingDown()) {
+                    c.collect();
+                    hudModel.addScore(10);
+                    hudViewer.refresh(hudModel);
+                    it.remove();
+                }
             }
         }
-        for (int i = 0; i < collectibles.size(); i++) {
-            Collectible c = collectibles.get(i);
-            if (player.collidesWith(c)) {
-                collectibles.remove(i);  
-                i--; 
-                System.out.println("Collected an item!"); 
 
 
-            }
-        }
-    }
-    
-    
+    }  
 }

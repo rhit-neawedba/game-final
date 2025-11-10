@@ -20,7 +20,6 @@ public class GamePanel extends JPanel {
 		public GamePanel() {
 			player = new Player(0, 0, this);
 //			testEnemy = new Enemy(500, 0, 50, 50, this);
-			level = new Level(1,this);
 			
 			//this term from: https://stackoverflow.com/questions/16535475/how-to-delete-a-class-object?noredirect=1&lq=1
 //			if (testEnemy.hasDied) {
@@ -53,6 +52,8 @@ public class GamePanel extends JPanel {
 			hudViewer.setBounds(getPreferredSize().width - hudWidth - 10, 10, hudWidth, hudHeight);;
 			add(hudViewer);
 			
+			level = new Level(1,this, hudModel, hudViewer);
+ 
 			this.addKeyListener(new Controller(player));
 				
 		}

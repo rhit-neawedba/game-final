@@ -53,6 +53,7 @@ public class Collectible extends Collision{
 	    }
 	    
 	    public void collect() {
+	    	
 	    	collected = true;
 	    }
 
