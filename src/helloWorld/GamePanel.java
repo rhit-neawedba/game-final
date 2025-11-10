@@ -55,7 +55,7 @@ public class GamePanel extends JPanel {
 			level = new Level(1,this, hudModel, hudViewer);
  
 			this.addKeyListener(new Controller(player));
-				
+			 	
 		}
 
 		@Override
