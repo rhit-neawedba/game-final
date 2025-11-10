@@ -9,7 +9,7 @@ public class HudViewer extends JLabel {
 	
 	public HudViewer() {
 		setOpaque(false);
-		setForeground(new Color(230, 240, 255));
+		setForeground(Color.BLACK);
         setFont(getFont().deriveFont(Font.BOLD, 13f));
 	}
 	

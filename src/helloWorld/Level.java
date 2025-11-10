@@ -3,8 +3,8 @@ package helloWorld;
 //import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import javax.swing.JLabel;
 
 
 
@@ -19,30 +19,27 @@ import javax.swing.JLabel;
  */
 public class Level {
     
-    private List<Platform> platforms;
+    public List<Platform> platforms;
     private List<Enemy> enemies;
     private List<Collectible> collectibles;
-    private Weapon gun;
-    private JLabel lives;
-    
     
     public Level(int levelNumber, GamePanel panel) {
         platforms = new ArrayList<>();
         enemies = new ArrayList<>();
-        collectibles = new ArrayList<Collectible>();
+        collectibles = new ArrayList<>();
         
         if (levelNumber == 1) {
             // Adds platforms
             platforms.add(new Platform(100, 400, 500, 50, panel));
             platforms.add(new Platform(200, 500, 600, 16, panel));
-            collectibles.add(new Collectible(100, 100));
             
             // Adds enemies
             enemies.add(new Enemy(500, 0, 50, 50, panel));
             enemies.add(new Enemy(200, 550, 50, 50, panel));
             
-            gun = new Weapon(0,0, null);
-            
+            //Adds collectibles
+            collectibles.add(new Collectible(100, 350));
+            collectibles.add(new Collectible(200, 450));
             
         } else if (levelNumber == 2) {
             platforms.add(new Platform(50, 300, 400, 50, panel));
@@ -56,17 +53,6 @@ public class Level {
         }
     }
     
-    public void applyPhysics(Player player) {
-    	// Adds gun
-        
-        	gun.attachTo(player);
-     
-        	player.tick(platforms, enemies, collectibles);
-    	for (Enemy e : enemies) {
-    		e.tick(platforms, player);
-    	}
-    }
-    
     public void draw(Graphics2D g2) {
         for (Platform p : platforms) {
             p.draw(g2);
@@ -75,9 +61,32 @@ public class Level {
             e.draw(g2);
         }
         for (Collectible c : collectibles) {
-    		c.draw(g2);
-    	}
-        	gun.draw(g2);
+        	c.draw(g2);
+        }
+    }
+    
+    public void update(Player player) {
+        for (Enemy e : enemies) {
+            e.tick(platforms, player);
+        }
+        
+        // https://www.w3schools.com/java/java_iterator.asp Used to help with iterator code 
+        for (Iterator<Collectible> it = collectibles.iterator(); it.hasNext();) {
+            Collectible c = it.next();
+            if (player.collidesWith(c)) {
+                it.remove();
+            }
+        }
+        for (int i = 0; i < collectibles.size(); i++) {
+            Collectible c = collectibles.get(i);
+            if (player.collidesWith(c)) {
+                collectibles.remove(i);  
+                i--; 
+                System.out.println("Collected an item!"); 
+
+
+            }
+        }
     }
     
     
