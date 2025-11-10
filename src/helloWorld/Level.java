@@ -4,6 +4,7 @@ package helloWorld;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 
 
 
@@ -21,12 +22,14 @@ public class Level {
     private List<Platform> platforms;
     private List<Enemy> enemies;
     private List<Collectible> collectibles;
+    private Weapon gun;
+    private JLabel lives;
+    
     
     public Level(int levelNumber, GamePanel panel) {
         platforms = new ArrayList<>();
         enemies = new ArrayList<>();
         collectibles = new ArrayList<Collectible>();
-        
         
         if (levelNumber == 1) {
             // Adds platforms
@@ -37,6 +40,9 @@ public class Level {
             // Adds enemies
             enemies.add(new Enemy(500, 0, 50, 50, panel));
             enemies.add(new Enemy(200, 550, 50, 50, panel));
+            
+            gun = new Weapon(0,0, null);
+            
             
         } else if (levelNumber == 2) {
             platforms.add(new Platform(50, 300, 400, 50, panel));
@@ -51,7 +57,11 @@ public class Level {
     }
     
     public void applyPhysics(Player player) {
-    	player.tick(platforms, enemies, collectibles);
+    	// Adds gun
+        
+        	gun.attachTo(player);
+     
+        	player.tick(platforms, enemies, collectibles);
     	for (Enemy e : enemies) {
     		e.tick(platforms, player);
     	}
@@ -67,6 +77,7 @@ public class Level {
         for (Collectible c : collectibles) {
     		c.draw(g2);
     	}
+        	gun.draw(g2);
     }
     
     

@@ -41,11 +41,19 @@ public class Projectile extends Collision{
 			g2.drawImage(bullet, x, y, width, height, null);
 		}
 		else if (shot) {
-			g2.drawImage(bullet, x + count*10, y, width, height, null);
-			count++;
+			g2.drawImage(bullet, x + getCount()*5, y, width, height, null);
+			setCount(getCount() + 1);
 		}
 		else {
 			g2.drawRect( x, y, width, height);
 		}
+	}
+
+	public int getCount() {
+		return this.count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

@@ -22,12 +22,16 @@ public class Player extends Entity {
 	private BufferedImage rightSprite;
 	private BufferedImage jumpSprite;
 	
+	//instance variable for Weapon @Anthony
+	private boolean shooting;
+	
 	boolean spritecreated;
 	private boolean facingRight = false;
 	
 	private static final int MAX_IFRAMES = 30;
 	private int iframes = 0;
-	public int score;	
+	public int score;
+		
 	
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
@@ -45,8 +49,8 @@ public class Player extends Entity {
 	}
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
-		if (dirx > 0) facingRight = true;
-		else if (dirx < 0 ) facingRight = false;
+		if (dirx > 0) setFacingRight(true);
+		else if (dirx < 0 ) setFacingRight(false);
 	}
 	
 	public void jump() {
@@ -61,8 +65,10 @@ public class Player extends Entity {
 
 	@Override
 	public void die() {
+		if (!isDead) {
 		isDead = true;
 		System.out.println("dead");
+		}
 	}
 	
 	private void enemyCollision(List<Enemy> enemies) {
@@ -82,22 +88,25 @@ public class Player extends Entity {
 		}
 	}
 	
+	
 	private void collect(Collectible c) {
 		score += 1;
 		c.collect();
 	}
+
 	
 	public void tick(List<Platform> staticColliders, List<Enemy> enemies, List<Collectible> collectibles) {
 		super.applyPhysics(staticColliders);
 		enemyCollision(enemies);
 		checkCollection(collectibles);
-	}
 
+	}
+	
 	public void draw(Graphics2D g2) {
 		Color c = g2.getColor();
 		
 		if(spritecreated) {
-    		if(!facingRight) {
+    		if(!isFacingRight()) {
     			try {
 					leftSprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
 					g2.drawImage(leftSprite, getX(), getY(), width, height, null);
@@ -106,7 +115,7 @@ public class Player extends Entity {
 					e.printStackTrace();
 				}
     		}
-    		else if (facingRight){
+    		else if (isFacingRight()){
     			try {
 					rightSprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
 					g2.drawImage(rightSprite, getX(), getY(), width, height, null);
@@ -136,5 +145,17 @@ public class Player extends Entity {
 //		d(g2);
 		}
     }
+	public boolean isShooting() {
+		return shooting;
+	}
+	public void setShooting(boolean shooting) {
+		this.shooting = shooting;
+	}
+	public boolean isFacingRight() {
+		return facingRight;
+	}
+	public void setFacingRight(boolean facingRight) {
+		this.facingRight = facingRight;
+	}
 
 }
