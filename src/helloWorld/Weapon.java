@@ -29,7 +29,7 @@ public class Weapon {
 	public Weapon(int x, int y, Player owner) { 
 	this.x = x;
 	this.y = y;
-	this.owner = owner;
+	attachTo(owner);
 	
 	try {
 		rightgun = ImageIO.read(Weapon.class.getResource("weapon.png"));

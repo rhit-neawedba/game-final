@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {
 	Level level;
 	HudModel hudModel;
 	HudViewer hudViewer;
+	Weapon gun;
 	
 		public GamePanel() {
 			player = new Player(0, 0, this);
@@ -26,6 +27,7 @@ public class GamePanel extends JPanel {
 //				testEnemy = null;
 //				System.gc();
 //			}
+			gun = new Weapon(0,0,player);
 			
 			setPreferredSize(new Dimension(800,600));
 			setBackground(Color.white);
@@ -67,6 +69,7 @@ public class GamePanel extends JPanel {
 			Graphics2D g2 = (Graphics2D) g;
 			level.draw(g2);
 			player.draw(g2);
+			gun.draw(g2);
 //			testEnemy.draw(g2);
 		}
 	}
