@@ -44,9 +44,9 @@ public class Weapon {
 	}
 }
 	
-	public void shoot() {
+	public void shoot(boolean isShootingRight) {
 		if (isAttached()) {
-		bullet.setShot();
+		bullet.setShot(isShootingRight);
 		}
 	}
 	
@@ -78,7 +78,10 @@ public class Weapon {
 	        this.y = owner.getY() + (owner.getHeight()/2 - 10);
 	    	}
 	    	
-	    	if ((owner.isFacingRight())&&(!bullet.shot)) {
+	    	if (bullet.shot) {
+	    		bullet.updatePosition();
+	    	}
+	    	else if (owner.isFacingRight()) {
 	    		bullet.setX(this.x + this.width - 2);
 	    		bullet.setY(this.y + height/2 - 5);
 	    	}

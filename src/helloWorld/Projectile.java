@@ -9,11 +9,10 @@ import javax.imageio.ImageIO;
 public class Projectile extends Collision{
 
 	public boolean shot = false;
+	private boolean isMovingRight = false;
 	private int count = 0;
-	private int x;
-	private int y;
-	private int width = 15;
-	private int height = 10;
+	private static int WIDTH = 15;
+	private static int HEIGHT = 10;
 	private BufferedImage bullet;
 	
 	boolean spritecreated;
@@ -21,6 +20,8 @@ public class Projectile extends Collision{
 	public Projectile(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.width = WIDTH;
+		this.height = HEIGHT;
 		
 		try {
 			bullet = ImageIO.read(Projectile.class.getResource("bullet.png"));
@@ -32,22 +33,29 @@ public class Projectile extends Collision{
 		}
 	}
 	
-	public void setShot() {
+	public void setShot(boolean isShootingRight) {
 		this.shot = !shot;
+		this.isMovingRight = isShootingRight;
+	}
+	
+	public void updatePosition(){
+		if (isMovingRight) this.x += 5;
+		else this.x -= 5;
 	}
 	
 	public void draw (Graphics2D g2) {
 		if(spritecreated && !shot) {
-			g2.drawImage(bullet, x, y, width, height, null);
+			g2.drawImage(bullet, getX(), getY(), width, height, null);
 		}
 		else if (shot && (count < 30)) {
-			g2.drawImage(bullet, x + count*5, y, width, height, null);
+			g2.drawImage(bullet, getX(), getY(), width, height, null);
 			count++;
 		}
 		else {
 			shot = false;
 			count = 0;
 		}
+		
 	}
 
 	public int getCount() {
