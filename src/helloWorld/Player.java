@@ -103,12 +103,14 @@ public class Player extends Entity {
 			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
 				this.health -= e.damage;
 				System.out.println("hit");
-				System.out.println(this.health);
 				iframes = MAX_IFRAMES;
 			}
-			if ((bullet != null) && bullet.collidesWith(e)) {
-				System.out.println("shot");
+			//System.out.println(bullet);
+			if (bullet.shot && bullet.collidesWith(e)) {
+				System.out.println();
+				bullet.setShot();
 				e.health -= 5;
+				System.out.println(e.health);
 				
 			}
 		}

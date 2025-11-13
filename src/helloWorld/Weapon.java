@@ -56,8 +56,8 @@ public class Weapon {
 	public void attachTo(Player player) {
 	    if (!isAttached()) setAttached(true);
 		if (owner == null) this.owner = player;
-		player.addGun(this, this.bullet);
 		this.bullet = new Projectile(this.x, this.y);
+		player.addGun(this, this.bullet);
 	}
 
 	public boolean isAttached() {

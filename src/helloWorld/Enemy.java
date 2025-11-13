@@ -101,6 +101,7 @@ public class Enemy extends Entity {
 	 * @param player
 	 */
 	private void trackPlayer(Player player) {
+		if (!hasDied) {
 		//fall if off platform - Enemy cannot jump to add a level of strategy to the player's gameplay
 
 		// this can probably be called at a different time and it be fine
@@ -164,21 +165,24 @@ public class Enemy extends Entity {
 			}
 			idleFrameCount += 1;
 		}
-
+		}
 	}
 
 	public void attack(Player player) {
-		if (player.getY() <= 10 + this.getY() && player.getY() >= 10 - this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius && player.vy <= 0) { //may change 10
-			//Conditions: Player's y is between 10 + enemy and 10 - enemy and within attack radius and player is not falling into enemy
-			if (player.getX() > this.getX()) {
-				player.health -= damage;
-				this.x = this.x + 1;
-			}
-			else if (player.getX() < this.getX()) {
-				player.health -= damage;
-				this.x = this.x - 1;
-			}
+		if (hasDied) {
+			this.damage = 0;
 		}
+//		if (player.getY() <= 10 + this.getY() && player.getY() >= 10 - this.getY() && Math.abs(this.getX() - player.getX()) <= this.attackRadius && player.vy <= 0) { //may change 10
+//			//Conditions: Player's y is between 10 + enemy and 10 - enemy and within attack radius and player is not falling into enemy
+//			if (player.getX() > this.getX()) {
+//				player.health -= damage;
+//				this.x = this.x + 1;
+//			}
+//			else if (player.getX() < this.getX()) {
+//				player.health -= damage;
+//				this.x = this.x - 1;
+//			}
+//		}
 		if (player.health <= 0) {
 			player.playerDied = true;
 		}
@@ -190,18 +194,21 @@ public class Enemy extends Entity {
 	 * @param g2
 	 */
 	public void draw(Graphics2D g2) {
-		if (this.health > 0) {
-		
-		if (spriteLoaded ) {
-//    		g2.drawImage(sprite, x, y, width, height, null);
-    		g2.drawImage(sprite, getX(), getY(), width, height, null);
-    	}
-    	else {
-	        g2.setColor(color);
-	        g2.fillRect(getX(), getY(), width, height);
-    	}
+		if (this.health < 0) {
+			hasDied = true;
+			this.damage = 0;
 		}
-    }
+		if (!hasDied) {
+			if ((spriteLoaded) ) {
+//    			g2.drawImage(sprite, x, y, width, height, null);
+				g2.drawImage(sprite, getX(), getY(), width, height, null);
+			}
+			else {
+				g2.setColor(color);
+				g2.fillRect(getX(), getY(), width, height);
+			}
+		}
+	}
 
 	/*
 	public void isAttacked(Player player) {

@@ -59,7 +59,7 @@ public class Projectile extends Collision{
 	
 	public void draw (Graphics2D g2) {
 		update();
-		drawHitbox(g2);		
+		//drawHitbox(g2);		
 		g2.drawImage(bullet,(int) x,(int) y, width, height, null);
 		
 	}
