@@ -24,6 +24,8 @@ public class Player extends Entity {
 	
 	//instance variable for Weapon @Anthony
 	private Weapon gun;
+	private Projectile bullet;
+	private boolean shooting = false;
 	
 	boolean spritecreated;
 	private boolean facingRight = false;
@@ -71,17 +73,18 @@ public class Player extends Entity {
 		}
 	}
 	
-<<<<<<< HEAD
-	public void addGun(Weapon gun) {
+	public void addGun(Weapon gun, Projectile bullet) {
 		this.gun = gun;
+		this.bullet = bullet;
 	}
 	
 	public void shoot() {
-		this.gun.shoot();
+		if (!shooting) {
+			this.gun.shoot();
+		}
+		shooting = true;
 	}
 	
-=======
->>>>>>> branch 'main' of https://github.com/rhit-neawedba/game-final.git
 	public void setX(int x) {
 	    this.x = x;
 	}
@@ -99,7 +102,12 @@ public class Player extends Entity {
 		for (Enemy e : enemies) {
 			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
 				health -= e.damage;
+				System.out.println("hit");
 				iframes = MAX_IFRAMES;
+			}
+			if (bullet.collidesWith(e)) {
+				e.health -= 5;
+				System.out.println(e.health);
 			}
 		}
 		if (health < 0) die();
@@ -186,6 +194,12 @@ public class Player extends Entity {
 
 	public boolean isPressingDown() {
 	    return pressingDown;
+	}
+	public boolean isShooting() {
+		return shooting;
+	}
+	public void setShooting(boolean shooting) {
+		this.shooting = shooting;
 	}
 
 }

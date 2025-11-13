@@ -56,7 +56,7 @@ public class Weapon {
 	public void attachTo(Player player) {
 	    if (!isAttached()) setAttached(true);
 		if (owner == null) this.owner = player;
-		player.addGun(this);
+		player.addGun(this, bullet);
 		this.bullet = new Projectile(this.x, this.y);
 	}
 
@@ -77,16 +77,22 @@ public class Weapon {
 	        this.x = owner.getX() - (width - 5);
 	        this.y = owner.getY() + (owner.getHeight()/2 - 10);
 	    	}
-	    	
+	    if (!bullet.shot) {
+	    	if (bullet.getCount() == 0) {
+	    		owner.setShooting(false);
+	    	}
 	    	if ((owner.isFacingRight())&&(!bullet.shot)) {
-	    		bullet.setX(this.x + this.width - 2);
+	    		bullet.setRight(true);
+	    		bullet.setX(this.x + this.width - 8);
 	    		bullet.setY(this.y + height/2 - 5);
 	    	}
 	    	else if (!owner.isFacingRight()){
 	    		//System.out.println(" test");
-	    		bullet.setX(this.x - 15);
+	    		bullet.setRight(false);
+	    		bullet.setX(this.x - 8);
 		    	bullet.setY(this.y + height/2 - 5);
 	    	}
+	    }
 	    }
 	}
 	

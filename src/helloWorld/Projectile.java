@@ -16,6 +16,8 @@ public class Projectile extends Collision{
 	private int height = 10;
 	private BufferedImage bullet;
 	
+	private boolean right;
+	
 	boolean spritecreated;
 	
 	public Projectile(int x, int y) {
@@ -38,11 +40,17 @@ public class Projectile extends Collision{
 	
 	public void draw (Graphics2D g2) {
 		if(spritecreated && !shot) {
-			g2.drawImage(bullet, x, y, width, height, null);
+				g2.drawImage(bullet, x, y, width, height, null);
 		}
-		else if (shot && (count < 30)) {
-			g2.drawImage(bullet, x + count*5, y, width, height, null);
-			count++;
+		else if (shot && (count < 40)) {
+			if (right) {
+				g2.drawImage(bullet, x + count*5, y, width, height, null);
+				count++;
+			}
+			else {
+				g2.drawImage(bullet, x - count*5, y, width, height, null);
+				count++;
+			}
 		}
 		else {
 			shot = false;
@@ -64,5 +72,13 @@ public class Projectile extends Collision{
 	
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public boolean isRight() {
+		return right;
+	}
+
+	public void setRight(boolean right) {
+		this.right = right;
 	}
 }

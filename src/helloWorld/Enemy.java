@@ -20,6 +20,7 @@ public class Enemy extends Entity {
 	int attackRadius;
 	int idleRadius;
 	int damage;
+	int health;
 	Color color = new Color(255,145,1); 
 	private BufferedImage sprite;
     private boolean spriteLoaded = false;
@@ -44,6 +45,7 @@ public class Enemy extends Entity {
 			this.attackRadius = 180;
 			this.idleRadius = 120; 
 			this.damage = 15;
+			this.health = 20;
 			this.vx = 120;
 			this.speed = 85;
 		}
@@ -51,6 +53,7 @@ public class Enemy extends Entity {
 			this.attackRadius = 140;
 			this.idleRadius = 100; 
 			this.damage = 10;
+			this.health = 15;
 			this.vx = 100;
 			this.speed = 75;
 		}
@@ -187,7 +190,9 @@ public class Enemy extends Entity {
 	 * @param g2
 	 */
 	public void draw(Graphics2D g2) {
-		if (spriteLoaded) {
+		if (this.health > 0) {
+		
+		if (spriteLoaded ) {
 //    		g2.drawImage(sprite, x, y, width, height, null);
     		g2.drawImage(sprite, getX(), getY(), width, height, null);
     	}
@@ -195,14 +200,16 @@ public class Enemy extends Entity {
 	        g2.setColor(color);
 	        g2.fillRect(getX(), getY(), width, height);
     	}
+		}
     }
 
+	/*
 	public void isAttacked(Player player) {
 		if(this.collidesWith(player) && player.getY() < this.getY()) { //in other words, if player lands on enemy from above 
 			this.die(); //maybe add some space in the getY term
 		}
 	}
-
+*/
 	@Override
 	public void die() {
 		this.hasDied = true;
