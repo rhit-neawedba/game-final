@@ -22,7 +22,7 @@ public class Player extends Entity {
 	private BufferedImage rightSprite;
 	private BufferedImage jumpSprite;
 	
-	//instance variable for Weapon @Anthony
+	//instance variables for weapon and bullet @Anthony
 	private Weapon gun;
 	private Projectile bullet;
 	private boolean shooting = false;
@@ -41,13 +41,16 @@ public class Player extends Entity {
 		score = 0;
 		
 		try {
-			sprite = ImageIO.read(Player.class.getResource("rosie.png"));
+			leftSprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
+			rightSprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
+			jumpSprite = ImageIO.read(Player.class.getResource("rosieJump.png"));
 			spritecreated = true;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			spritecreated = false;
-			//e.printStackTrace();
 		}
+		
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	public void move(int dirx) {
 		this.vx = dirx * this.speed;
@@ -69,15 +72,23 @@ public class Player extends Entity {
 	public void die() {
 		if (!isDead) {
 		isDead = true;
-		System.out.println("dead");
+		System.out.println("GAME OVER");
 		}
 	}
 	
+	/*
+	 * @param Weapon gun - stores a reference to gun object in player class
+	 * @param Projectile bullet - same as gun but for the bullet
+	 * Needed to use shoot method and check bullet collisions
+	 */
 	public void addGun(Weapon gun, Projectile bullet) {
 		this.gun = gun;
 		this.bullet = bullet;
 	}
 	
+	/*
+	 * Allows gun method to be accessed by player so it can be accessed in controller
+	 */
 	public void shoot() {
 		if (!shooting) {
 			this.gun.shoot();
@@ -107,10 +118,9 @@ public class Player extends Entity {
 			}
 			//System.out.println(bullet);
 			if (bullet.shot && bullet.collidesWith(e)) {
-				System.out.println();
 				bullet.setShot();
 				e.health -= 5;
-				System.out.println(e.health);
+				//System.out.println(e.health);
 				
 			}
 		}
@@ -137,36 +147,20 @@ public class Player extends Entity {
 		enemyCollision(enemies,bullet);
 	}
 	
+	
+		
 	public void draw(Graphics2D g2) {
 		Color c = g2.getColor();
 		
 		if(spritecreated) {
     		if(!isFacingRight()) {
-    			try {
-					leftSprite = ImageIO.read(Player.class.getResource("rosieLeft.png"));
 					g2.drawImage(leftSprite, getX(), getY(), width, height, null);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
     		}
     		else if (isFacingRight()){
-    			try {
-					rightSprite = ImageIO.read(Player.class.getResource("rosieRight.png"));
-					g2.drawImage(rightSprite, getX(), getY(), width, height, null);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					g2.drawImage(rightSprite, getX(), getY(), width, height, null);				
     		}
     		else if (Math.abs(vy) > 0){
-    			try {
-					jumpSprite = ImageIO.read(Player.class.getResource("rosieJump.png"));
 					g2.drawImage(jumpSprite, getX(), getY(), width, height, null);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
     		}
 		}
 		else {

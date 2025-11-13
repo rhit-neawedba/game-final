@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 public class Weapon {
 	
-	private boolean attached;
+	
 	private boolean pickedup = false;
 	private int x;
 	private int y;
@@ -45,7 +45,7 @@ public class Weapon {
 }
 	
 	public void shoot() {
-		if (isAttached()) {
+		if (owner != null) {
 		bullet.setShot();
 		}
 	}
@@ -54,18 +54,15 @@ public class Weapon {
 	
 
 	public void attachTo(Player player) {
-	    if (!isAttached()) setAttached(true);
 		if (owner == null) this.owner = player;
 		this.bullet = new Projectile(this.x, this.y);
 		player.addGun(this, this.bullet);
 	}
 
-	public boolean isAttached() {
-	    return this.attached;
-	}
+
 
 	public void update() {
-	    if (attached && owner != null) {
+	    if (owner != null) {
 	    	if (owner.isFacingRight()) {
 	        // Follow player's position with an offset
 	    	gun = rightgun;
@@ -115,10 +112,6 @@ public class Weapon {
 		}
 	}
 
-
-	public void setAttached(boolean attached) {
-		this.attached = attached;
-	}
 	
 	public Player getOwner() {
 		return this.owner;

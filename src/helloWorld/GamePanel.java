@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel {
 
+	
+	Dimension screen;
 	Player player;
 //	Enemy testEnemy;
 	Timer timer;
@@ -24,8 +29,11 @@ public class GamePanel extends JPanel {
 	
 		public GamePanel() {
 			//Panel set up
-			setPreferredSize(new Dimension(800,600));
-			setBackground(Color.white);
+			screen = new Dimension(800,600);
+			setPreferredSize(screen);
+			setBackground(Color.WHITE);
+			
+			
 			setFocusable(true);
 			setLayout(null);
 			//HUD Setup
@@ -96,6 +104,7 @@ public class GamePanel extends JPanel {
 			
 			
 			Graphics2D g2 = (Graphics2D) g;
+			
 			level.draw(g2);
 			player.draw(g2);
 			gun.draw(g2);

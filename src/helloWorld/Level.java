@@ -1,10 +1,15 @@
 package helloWorld;
 
+import java.awt.Dimension;
 //import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 
 
@@ -19,7 +24,8 @@ import java.util.List;
  */
 public class Level {
 	
-    
+	BufferedImage bg;
+	Dimension screen;
     public List<Platform> platforms;
     private List<Enemy> enemies;
     private List<Collectible> collectibles;
@@ -35,6 +41,14 @@ public class Level {
         platforms = new ArrayList<>();
         enemies = new ArrayList<>();
         collectibles = new ArrayList<>();
+        
+        try {
+			bg = ImageIO.read(Level.class.getResource("background.png"));
+			screen = panel.getPreferredSize();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
         if (levelNumber == 1) {
@@ -92,7 +106,8 @@ public class Level {
     }
     
     public void draw(Graphics2D g2) {
-        for (Platform p : platforms) {
+        g2.drawImage(bg,0,0,(int) screen.getWidth(),(int) screen.getHeight(),null);
+    	for (Platform p : platforms) {
             p.draw(g2);
         }
         for (Enemy e : enemies) {
