@@ -71,6 +71,19 @@ public class Player extends Entity {
 		}
 	}
 	
+	public void setX(int x) {
+	    this.x = x;
+	}
+
+	public void setY(int y) {
+	    this.y = y;
+	}
+	
+	public void setPosition(int x, int y) {
+	    this.x = x;
+	    this.y = y;
+	}
+	
 	private void enemyCollision(List<Enemy> enemies) {
 		for (Enemy e : enemies) {
 			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
