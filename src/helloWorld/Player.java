@@ -23,7 +23,7 @@ public class Player extends Entity {
 	private BufferedImage jumpSprite;
 	
 	//instance variable for Weapon @Anthony
-	private boolean shooting;
+	private Weapon gun;
 	
 	boolean spritecreated;
 	private boolean facingRight = false;
@@ -69,6 +69,27 @@ public class Player extends Entity {
 		isDead = true;
 		System.out.println("dead");
 		}
+	}
+	
+	public void addGun(Weapon gun) {
+		this.gun = gun;
+	}
+	
+	public void shoot() {
+		this.gun.shoot();
+	}
+	
+	public void setX(int x) {
+	    this.x = x;
+	}
+
+	public void setY(int y) {
+	    this.y = y;
+	}
+	
+	public void setPosition(int x, int y) {
+	    this.x = x;
+	    this.y = y;
 	}
 	
 	private void enemyCollision(List<Enemy> enemies) {
@@ -145,12 +166,8 @@ public class Player extends Entity {
 //		d(g2);
 		}
     }
-	public boolean isShooting() {
-		return shooting;
-	}
-	public void setShooting(boolean shooting) {
-		this.shooting = shooting;
-	}
+	
+	
 	public boolean isFacingRight() {
 		return facingRight;
 	}
