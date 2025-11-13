@@ -98,16 +98,17 @@ public class Player extends Entity {
 	    this.y = y;
 	}
 	
-	private void enemyCollision(List<Enemy> enemies) {
+	private void enemyCollision(List<Enemy> enemies, Projectile bullet) {
 		for (Enemy e : enemies) {
 			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
 				health -= e.damage;
 				System.out.println("hit");
+				System.out.println(e.health);
 				iframes = MAX_IFRAMES;
 			}
-			if (bullet != null && bullet.collidesWith(e)) {
+			if ((bullet != null) && bullet.collidesWith(e)) {
 				e.health -= 5;
-				System.out.println(e.health);
+				
 			}
 		}
 		if (health < 0) die();
@@ -130,7 +131,7 @@ public class Player extends Entity {
 	
 	public void tick(List<Platform> staticColliders, List<Enemy> enemies) {
 		super.applyPhysics(staticColliders);
-		enemyCollision(enemies);
+		enemyCollision(enemies,bullet);
 	}
 	
 	public void draw(Graphics2D g2) {

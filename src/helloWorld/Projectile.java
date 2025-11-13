@@ -1,5 +1,6 @@
 package helloWorld;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -39,6 +40,11 @@ public class Projectile extends Collision{
 	}
 	
 	public void draw (Graphics2D g2) {
+		Color orig = g2.getColor();
+		g2.setColor(Color.cyan);
+		drawHitbox(g2);
+		g2.setColor(orig);
+				
 		if(spritecreated && !shot) {
 				g2.drawImage(bullet, x, y, width, height, null);
 		}
