@@ -99,6 +99,7 @@ public class GamePanel extends JPanel {
 	        
 	        repaint();
 	    }
+	    
 	    public void gameWin() {
     		try {
     		win = ImageIO.read(GamePanel.class.getResource("GameOver.png"));
@@ -136,7 +137,7 @@ public class GamePanel extends JPanel {
 //			testEnemy.draw(g2);
 			}
 //			if (currentLevel == 4) {
-//				gameWin();
+//				gameWin();  
 //			}
 			else {
 				gameOver();
