@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {
 	
 	Dimension screen;
 	private BufferedImage fail;
+	private BufferedImage win;	
 	
 	Player player;
 //	Enemy testEnemy;
@@ -98,7 +99,17 @@ public class GamePanel extends JPanel {
 	        
 	        repaint();
 	    }
-
+	    public void gameWin() {
+    		try {
+    		win = ImageIO.read(GamePanel.class.getResource("GameOver.png"));
+    		//Image by pngtree.com
+    		}
+    		catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    		level.gameOver(win);
+    	}
+	    
 	    public void gameOver() {
 	    		try {
 	    		fail = ImageIO.read(GamePanel.class.getResource("GameOver.png"));
@@ -124,6 +135,9 @@ public class GamePanel extends JPanel {
 			gun.draw(g2);
 //			testEnemy.draw(g2);
 			}
+//			if (currentLevel == 4) {
+//				gameWin();
+//			}
 			else {
 				gameOver();
 			}
