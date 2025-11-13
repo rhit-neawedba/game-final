@@ -102,6 +102,7 @@ public class GamePanel extends JPanel {
 	    public void gameOver() {
 	    		try {
 	    		fail = ImageIO.read(GamePanel.class.getResource("GameOver.png"));
+	    		//Image by pngtree.com
 	    		}
 	    		catch (IOException e) {
 	    			e.printStackTrace();
