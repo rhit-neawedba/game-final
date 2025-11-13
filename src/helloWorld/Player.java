@@ -105,7 +105,7 @@ public class Player extends Entity {
 				System.out.println("hit");
 				iframes = MAX_IFRAMES;
 			}
-			if (bullet.collidesWith(e)) {
+			if (bullet != null && bullet.collidesWith(e)) {
 				e.health -= 5;
 				System.out.println(e.health);
 			}
