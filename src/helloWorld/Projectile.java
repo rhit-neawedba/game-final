@@ -11,10 +11,8 @@ public class Projectile extends Collision{
 
 	public boolean shot = false;
 	private int count = 0;
-	private int x;
-	private int y;
-	private int width = 15;
-	private int height = 10;
+	//private int x;
+	//private int y;
 	private BufferedImage bullet;
 	
 	private boolean right;
@@ -24,7 +22,9 @@ public class Projectile extends Collision{
 	public Projectile(int x, int y) {
 		this.x = x;
 		this.y = y;
-		
+		this.width = 15;
+		this.height = 10;
+	
 		try {
 			bullet = ImageIO.read(Projectile.class.getResource("bullet.png"));
 			spritecreated = true;
@@ -39,22 +39,14 @@ public class Projectile extends Collision{
 		this.shot = !shot;
 	}
 	
-	public void draw (Graphics2D g2) {
-		Color orig = g2.getColor();
-		g2.setColor(Color.cyan);
-		drawHitbox(g2);
-		g2.setColor(orig);
-				
-		if(spritecreated && !shot) {
-				g2.drawImage(bullet, x, y, width, height, null);
-		}
-		else if (shot && (count < 40)) {
+	private void update() {
+		if (shot && (count < 40)) {
 			if (right) {
-				g2.drawImage(bullet, x + count*5, y, width, height, null);
+				this.x = x + 5;
 				count++;
 			}
 			else {
-				g2.drawImage(bullet, x - count*5, y, width, height, null);
+				this.x = x - 5;
 				count++;
 			}
 		}
@@ -62,6 +54,14 @@ public class Projectile extends Collision{
 			shot = false;
 			count = 0;
 		}
+		
+	}
+	
+	public void draw (Graphics2D g2) {
+		update();
+		drawHitbox(g2);		
+		g2.drawImage(bullet,(int) x,(int) y, width, height, null);
+		
 	}
 
 	public int getCount() {

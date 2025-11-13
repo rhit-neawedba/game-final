@@ -19,7 +19,7 @@ public class HudViewer extends JLabel {
         );
         html.append("<li>Level: ").append(hud.getLevel()).append("</li>");
         html.append("<li>Current: ").append(hud.getScore()).append("</li>");
-        html.append("<li>Lives: ").append(hud.getLives()).append("</li>");
+        html.append("<li>Health: ").append(hud.getLives()).append("</li>");
         html.append("</ol></html>");
         setText(html.toString());
     }

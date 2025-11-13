@@ -37,7 +37,7 @@ public class Player extends Entity {
 	
 	public Player(int x, int y, GamePanel canvas) {
 		super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, canvas);
-		super.health = 100;
+		this.health = 100;
 		score = 0;
 		
 		try {
@@ -101,12 +101,13 @@ public class Player extends Entity {
 	private void enemyCollision(List<Enemy> enemies, Projectile bullet) {
 		for (Enemy e : enemies) {
 			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
-				health -= e.damage;
+				this.health -= e.damage;
 				System.out.println("hit");
-				System.out.println(e.health);
+				System.out.println(this.health);
 				iframes = MAX_IFRAMES;
 			}
 			if ((bullet != null) && bullet.collidesWith(e)) {
+				System.out.println("shot");
 				e.health -= 5;
 				
 			}
