@@ -55,7 +55,7 @@ public class GamePanel extends JPanel {
 			this.addKeyListener(new Controller(player));
 			
 			timer = new Timer(8, e -> {
-				player.applyPhysics(level.platforms);
+//				player.applyPhysics(level.platforms);
 //				testEnemy.tick(level.platforms, player);
 				level.update(player);
 				checkLevelProgression();

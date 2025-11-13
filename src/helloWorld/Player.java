@@ -113,7 +113,8 @@ public class Player extends Entity {
 		if (health < 0) die();
 		if (iframes > 0) iframes -= 1;
 	}
-	
+
+	@Deprecated
 	private void checkCollection(List<Collectible> collectibles) {
 		for (Collectible c : collectibles) {
 			if (collidesWith(c) && !c.hasBeenCollected()) collect(c);
@@ -127,11 +128,9 @@ public class Player extends Entity {
 	}
 
 	
-	public void tick(List<Platform> staticColliders, List<Enemy> enemies, List<Collectible> collectibles) {
+	public void tick(List<Platform> staticColliders, List<Enemy> enemies) {
 		super.applyPhysics(staticColliders);
 		enemyCollision(enemies);
-		checkCollection(collectibles);
-
 	}
 	
 	public void draw(Graphics2D g2) {

@@ -106,8 +106,9 @@ public class Level {
     public void update(Player player) {
         for (Enemy e : enemies) {
             e.tick(platforms, player);
-
         }
+        
+        player.tick(platforms, enemies);
         
         // https://www.w3schools.com/java/java_iterator.asp Used to help with iterator code 
         Iterator<Collectible> it = collectibles.iterator();
