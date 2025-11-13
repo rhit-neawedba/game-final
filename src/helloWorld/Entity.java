@@ -25,7 +25,7 @@ public abstract class Entity extends Collision {
 	
 	private long timeStamp = System.currentTimeMillis(); // timestamp in milliseconds for delta time
 	protected double deltatime;
-	private GamePanel canvas; // to keep entities on screen or detect when they fall off
+	protected GamePanel canvas; // to keep entities on screen or detect when they fall off
 	
 	public boolean isDead = false;
 	private boolean offscreen;

@@ -22,6 +22,7 @@ public class Player extends Entity {
 	private BufferedImage rightSprite;
 	private BufferedImage jumpSprite;
 	
+	
 	//instance variables for weapon and bullet @Anthony
 	private Weapon gun;
 	private Projectile bullet;
@@ -113,7 +114,7 @@ public class Player extends Entity {
 		for (Enemy e : enemies) {
 			if (collidesWith(e) && this.vy <= e.getVy() && iframes == 0) {
 				this.health -= e.damage;
-				System.out.println("hit");
+				//System.out.println("hit");
 				iframes = MAX_IFRAMES;
 			}
 			//System.out.println(bullet);
@@ -146,7 +147,6 @@ public class Player extends Entity {
 		super.applyPhysics(staticColliders);
 		enemyCollision(enemies,bullet);
 	}
-	
 	
 		
 	public void draw(Graphics2D g2) {

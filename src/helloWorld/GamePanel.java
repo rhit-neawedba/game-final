@@ -15,6 +15,8 @@ public class GamePanel extends JPanel {
 
 	
 	Dimension screen;
+	private BufferedImage fail;
+	
 	Player player;
 //	Enemy testEnemy;
 	Timer timer;
@@ -97,17 +99,32 @@ public class GamePanel extends JPanel {
 	        repaint();
 	    }
 
+	    public void gameOver() {
+	    		try {
+	    		fail = ImageIO.read(GamePanel.class.getResource("GameOver.png"));
+	    		}
+	    		catch (IOException e) {
+	    			e.printStackTrace();
+	    		}
+	    		level.gameOver(fail);
+	    	}
+	    
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(Color.WHITE);
 			
-			
 			Graphics2D g2 = (Graphics2D) g;
 			
 			level.draw(g2);
+			if (!player.isDead) {
+			
 			player.draw(g2);
 			gun.draw(g2);
 //			testEnemy.draw(g2);
+			}
+			else {
+				gameOver();
+			}
 		}
 	}

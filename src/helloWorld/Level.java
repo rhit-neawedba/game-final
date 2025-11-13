@@ -25,7 +25,10 @@ import javax.imageio.ImageIO;
 public class Level {
 	
 	BufferedImage bg;
+	BufferedImage GO;
 	Dimension screen;
+	boolean shutdown = false;
+	
     public List<Platform> platforms;
     private List<Enemy> enemies;
     private List<Collectible> collectibles;
@@ -105,7 +108,13 @@ public class Level {
         }
     }
     
+    public void gameOver (BufferedImage image) {
+    	this.GO = image;
+    	}
+  
     public void draw(Graphics2D g2) {
+    	
+    	if (GO == null) {
         g2.drawImage(bg,0,0,(int) screen.getWidth(),(int) screen.getHeight(),null);
     	for (Platform p : platforms) {
             p.draw(g2);
@@ -116,6 +125,10 @@ public class Level {
         for (Collectible c : collectibles) {
         	c.draw(g2);
         }
+    	}
+    	else {
+    		g2.drawImage(GO,25,25,(int) screen.getWidth()-50,(int) screen.getHeight()-50,null);
+    	}
     }
     
     public void update(Player player) {
