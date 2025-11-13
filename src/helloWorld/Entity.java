@@ -28,6 +28,7 @@ public abstract class Entity extends Collision {
 	private GamePanel canvas; // to keep entities on screen or detect when they fall off
 	
 	public boolean isDead = false;
+	private boolean offscreen;
 	
 	public Entity(int x, int y, int width, int height, GamePanel canvas) {
 		this.x = x; this.y = y; this.width = width; this.height = height;
@@ -119,6 +120,16 @@ public abstract class Entity extends Collision {
 		deltatime = deltaMilis / 1.0e3;
 	}
 	
+	protected void offscreenCheck() {
+		if ((this.x) > this.canvas.getWidth() || (this.x) < 0){
+			if (vx > 0) {
+			this.setPosition(0, this.y);
+			}
+		else {
+			this.setPosition(this.canvas.getWidth(), this.y);
+			}
+		}
+	}
 	/**
 	 * draws the Entity on a component
 	 * @param g2
@@ -129,7 +140,7 @@ public abstract class Entity extends Collision {
 //		this.foot.d(g2);
 //		this.upperBody.d(g2);
 //	}
-	
+
 }
 
 /**
@@ -185,6 +196,7 @@ class UpperBody extends Collision{
 	public void setPosition(double x, double y) {
 		super.setPosition(x-EXPAND*2, y+HEAD_EXPAND);
 	}
+	
 	
 //	public void d(Graphics2D g2) {
 //		g2.drawRect(getX(), getY(), width, height);
