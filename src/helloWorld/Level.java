@@ -119,8 +119,14 @@ public class Level {
     }
     
     public void update(Player player) {
-        hudModel.setLives(player.health);
+       if (player.health > 0) {
+    	hudModel.setLives(player.health);
         hudViewer.refresh(hudModel);
+       }
+       else {
+    	   hudModel.setLives(0);
+           hudViewer.refresh(hudModel);
+       }
     	
     	for (Enemy e : enemies) {
             e.tick(platforms, player);

@@ -121,12 +121,12 @@ public abstract class Entity extends Collision {
 	}
 	
 	protected void offscreenCheck() {
-		if ((this.x) > this.canvas.getWidth() || (this.x) < 0){
+		if ((this.x) > (this.canvas.getWidth() + 10) || (this.x) < -10){
 			if (vx > 0) {
-			this.setPosition(0, this.y);
+			this.setPosition(-5, this.y);
 			}
 		else {
-			this.setPosition(this.canvas.getWidth(), this.y);
+			this.setPosition(this.canvas.getWidth() + 5, this.y);
 			}
 		}
 	}
