@@ -125,7 +125,7 @@ public class Player extends Entity {
 				
 			}
 		}
-		if (health < 0) die();
+		if (health <= 0) die();
 		if (iframes > 0) iframes -= 1;
 	}
 
