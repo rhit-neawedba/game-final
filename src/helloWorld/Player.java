@@ -71,6 +71,7 @@ public class Player extends Entity {
 		}
 	}
 	
+<<<<<<< HEAD
 	public void addGun(Weapon gun) {
 		this.gun = gun;
 	}
@@ -79,6 +80,8 @@ public class Player extends Entity {
 		this.gun.shoot();
 	}
 	
+=======
+>>>>>>> branch 'main' of https://github.com/rhit-neawedba/game-final.git
 	public void setX(int x) {
 	    this.x = x;
 	}

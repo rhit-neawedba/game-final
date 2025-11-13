@@ -20,8 +20,7 @@ public class Controller extends KeyAdapter {
 			case KeyEvent.VK_D -> player.move(1);
 			case KeyEvent.VK_A -> player.move(-1);
 			case KeyEvent.VK_SPACE -> player.jump();
-			case KeyEvent.VK_ENTER -> { 
-				if (!shooting) player.jump();
+			case KeyEvent.VK_ENTER -> { player.shoot();
 			}
 			case KeyEvent.VK_S -> player.setPressingDown(true);
 				

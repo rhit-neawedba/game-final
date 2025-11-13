@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+
+
 public class Weapon {
 	
 	private boolean attached;
@@ -44,9 +46,7 @@ public class Weapon {
 	
 	public void shoot() {
 		if (isAttached()) {
-		this.bullet = new Projectile(this.x, this.y/2);
 		bullet.setShot();
-	
 		}
 	}
 	
@@ -56,6 +56,8 @@ public class Weapon {
 	public void attachTo(Player player) {
 	    if (!isAttached()) setAttached(true);
 		if (owner == null) this.owner = player;
+		player.addGun(this);
+		this.bullet = new Projectile(this.x, this.y);
 	}
 
 	public boolean isAttached() {
@@ -75,6 +77,16 @@ public class Weapon {
 	        this.x = owner.getX() - (width - 5);
 	        this.y = owner.getY() + (owner.getHeight()/2 - 10);
 	    	}
+	    	
+	    	if ((owner.isFacingRight())&&(!bullet.shot)) {
+	    		bullet.setX(this.x + this.width - 2);
+	    		bullet.setY(this.y + height/2 - 5);
+	    	}
+	    	else if (!owner.isFacingRight()){
+	    		//System.out.println(" test");
+	    		bullet.setX(this.x - 15);
+		    	bullet.setY(this.y + height/2 - 5);
+	    	}
 	    }
 	}
 	
@@ -88,9 +100,6 @@ public class Weapon {
 			if ((bullet != null)) {
 				bullet.draw(g2);
 				
-				if (bullet.getCount() == 20) {
-				owner.setShooting(false);
-				}
 			}
 	
 		else {

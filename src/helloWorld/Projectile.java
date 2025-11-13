@@ -12,8 +12,8 @@ public class Projectile extends Collision{
 	private int count = 0;
 	private int x;
 	private int y;
-	private int width;
-	private int height;
+	private int width = 15;
+	private int height = 10;
 	private BufferedImage bullet;
 	
 	boolean spritecreated;
@@ -33,19 +33,20 @@ public class Projectile extends Collision{
 	}
 	
 	public void setShot() {
-		this.shot = true;
+		this.shot = !shot;
 	}
 	
 	public void draw (Graphics2D g2) {
 		if(spritecreated && !shot) {
 			g2.drawImage(bullet, x, y, width, height, null);
 		}
-		else if (shot) {
-			g2.drawImage(bullet, x + getCount()*5, y, width, height, null);
-			setCount(getCount() + 1);
+		else if (shot && (count < 30)) {
+			g2.drawImage(bullet, x + count*5, y, width, height, null);
+			count++;
 		}
 		else {
-			g2.drawRect( x, y, width, height);
+			shot = false;
+			count = 0;
 		}
 	}
 
@@ -55,5 +56,13 @@ public class Projectile extends Collision{
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
 	}
 }
