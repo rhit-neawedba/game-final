@@ -83,6 +83,12 @@ public class GamePanel extends JPanel {
 	            currentLevel++;
 	            hudModel.addLevel(1);
 	            scoreThreshold += 30;
+	            
+	            if (currentLevel == 4) {
+	                gameWin();
+	                timer.stop();   
+	                return;         
+	            }
 	            loadNextLevel();
 	        }
 	    }
